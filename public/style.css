@@ -144,3 +144,70 @@ textarea {
     background-color: #30363d;
     border-color: #8b949e;
 }
+
+/* --- System Powiadomień (Toasts) --- */
+
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.toast {
+    min-width: 250px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.3s forwards;
+    cursor: pointer;
+}
+
+/* Kolory dla różnych typów powiadomień */
+.toast.error {
+    background-color: #da3633; /* Czerwony (GitHub Error) */
+    border-left: 5px solid #8e1515;
+}
+
+.toast.warning {
+    background-color: #d29922; /* Żółty (GitHub Warning) */
+    color: #0d1117; /* Ciemny tekst dla kontrastu */
+    border-left: 5px solid #9e6a03;
+}
+
+.toast.success {
+    background-color: #238636; /* Zielony (GitHub Success) */
+    border-left: 5px solid #1a5c27;
+}
+
+.toast.info {
+    background-color: #1f6feb; /* Niebieski (GitHub Info) */
+    border-left: 5px solid #113d85;
+}
+
+/* Animacja wjazdu */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animacja znikania (dodawana przez JS przy usuwaniu) */
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
