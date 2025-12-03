@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator GitHub Readme</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Generator Statystyk GitHub 🚀</h1>
+        <p>Stworzony przez MaxPowerPL</p>
+
+        <div class="input-group">
+            <label for="username">Twój GitHub Nick:</label>
+            <input type="text" id="username" placeholder="np. MaxPowerPL">
+            <button onclick="generuj()">Generuj Podgląd</button>
+        </div>
+
+        <div class="preview-box">
+            <h3>Podgląd:</h3>
+            <img id="preview-image" src="" alt="Podgląd pojawi się tutaj" style="display: none;">
+        </div>
+
+        <div class="code-box">
+            <h3>Skopiuj kod do README.md:</h3>
+            <textarea id="markdown-code" readonly></textarea>
+            <button onclick="kopiuj()">Kopiuj Kod</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
