@@ -8,7 +8,7 @@ function generuj() {
 
     // Ten adres "api/index" zadziała automatycznie po wrzuceniu na Vercel
     // Vercel przekieruje zapytanie do folderu /api
-    const apiUrl = `${window.location.origin}/api/index?username=${username}`;
+    const apiUrl = `${window.location.origin}/api?username=${username}`;
 
     // 1. Ustawiamy podgląd
     const img = document.getElementById('preview-image');
