@@ -3,30 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator GitHub Readme</title>
+    <title>GitHub Readme Generator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>Generator Statystyk GitHub 🚀</h1>
-        <p>Stworzony przez MaxPowerPL</p>
+    <div class="main-container">
+        <div class="editor-panel">
+            <header>
+                <h1>🚀 Readme Generator</h1>
+                <p>Stworzony przez MaxPowerPL</p>
+            </header>
 
-        <div class="input-group">
-            <label for="username">Twój GitHub Nick:</label>
-            <input type="text" id="username">
-            <button onclick="generuj()">Generuj Podgląd</button>
+            <form id="generator-form">
+
+                <div class="section-card">
+                    <h2>👤 Basic Information</h2>
+                    <div class="input-group">
+                        <label>Nagłówek (Imię):</label>
+                        <input type="text" id="headerName" placeholder="Dominik">
+                    </div>
+                    <div class="input-group">
+                        <label>GitHub Username:</label>
+                        <input type="text" id="username" placeholder="MaxPowerPL">
+                    </div>
+                    <div class="input-group">
+                        <label>Opis (Subtitle):</label>
+                        <input type="text" id="subtitle" placeholder="Frontend Developer">
+                    </div>
+                    <div class="input-group">
+                        <label>Banner Text (Typing effect):</label>
+                        <input type="text" id="typingText" placeholder="Coding w C++; I like cafe">
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📊 Stats & Theme</h2>
+                    <label>Wybierz motyw karty statystyk:</label>
+                    <select id="themeSelect" onchange="updatePreview()">
+                        <option value="default">Domyślny (Ciemny)</option>
+                        <option value="gruvbox">Gruvbox (Retro)</option>
+                        <option value="dracula">Dracula (Fiolet)</option>
+                        <option value="light">Jasny</option>
+                    </select>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="showStats" checked onchange="updatePreview()"> <label>Pokaż Statystyki</label>
+                        <input type="checkbox" id="showTrophies" checked onchange="updatePreview()"> <label>Pokaż Trofea</label>
+                        <input type="checkbox" id="showStreak" checked onchange="updatePreview()"> <label>Pokaż Streak</label>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>🛠️ Skills & Tools</h2>
+                    <p>Zaznacz technologie, które znasz:</p>
+
+                    <div class="skills-category">
+                        <h4>Programming Languages <button type="button" class="select-all-btn" onclick="toggleCategory(this)">Zaznacz wszystkie</button></h4>
+                        <div class="skills-grid">
+                            <label class="skill-checkbox"><input type="checkbox" value="javascript" onchange="updatePreview()"> <i class="devicon-javascript-plain colored"></i> JS</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="typescript" onchange="updatePreview()"> <i class="devicon-typescript-plain colored"></i> TS</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="python" onchange="updatePreview()"> <i class="devicon-python-plain colored"></i> Python</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="java" onchange="updatePreview()"> <i class="devicon-java-plain colored"></i> Java</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="cplusplus" onchange="updatePreview()"> <i class="devicon-cplusplus-plain colored"></i> C++</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="csharp" onchange="updatePreview()"> <i class="devicon-csharp-plain colored"></i> C#</label>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <h4>Frontend <button type="button" class="select-all-btn" onclick="toggleCategory(this)">Zaznacz wszystkie</button></h4>
+                        <div class="skills-grid">
+                            <label class="skill-checkbox"><input type="checkbox" value="html5" onchange="updatePreview()"> <i class="devicon-html5-plain colored"></i> HTML5</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="css3" onchange="updatePreview()"> <i class="devicon-css3-plain colored"></i> CSS3</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="react" onchange="updatePreview()"> <i class="devicon-react-original colored"></i> React</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="vuejs" onchange="updatePreview()"> <i class="devicon-vuejs-plain colored"></i> Vue</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="angular" onchange="updatePreview()"> <i class="devicon-angular-plain colored"></i> Angular</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="tailwindcss" onchange="updatePreview()"> <i class="devicon-tailwindcss-plain colored"></i> Tailwind</label>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <h4>Backend & DB <button type="button" class="select-all-btn" onclick="toggleCategory(this)">Zaznacz wszystkie</button></h4>
+                        <div class="skills-grid">
+                            <label class="skill-checkbox"><input type="checkbox" value="nodejs" onchange="updatePreview()"> <i class="devicon-nodejs-plain colored"></i> Node.js</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="express" onchange="updatePreview()"> <i class="devicon-express-original colored"></i> Express</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="mysql" onchange="updatePreview()"> <i class="devicon-mysql-plain colored"></i> MySQL</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="postgresql" onchange="updatePreview()"> <i class="devicon-postgresql-plain colored"></i> PostgreSQL</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="mongodb" onchange="updatePreview()"> <i class="devicon-mongodb-plain colored"></i> MongoDB</label>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <h4>Tools <button type="button" class="select-all-btn" onclick="toggleCategory(this)">Zaznacz wszystkie</button></h4>
+                        <div class="skills-grid">
+                            <label class="skill-checkbox"><input type="checkbox" value="git" onchange="updatePreview()"> <i class="devicon-git-plain colored"></i> Git</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="github" onchange="updatePreview()"> <i class="devicon-github-original colored"></i> GitHub</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="vscode" onchange="updatePreview()"> <i class="devicon-vscode-plain colored"></i> VS Code</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="docker" onchange="updatePreview()"> <i class="devicon-docker-plain colored"></i> Docker</label>
+                            <label class="skill-checkbox"><input type="checkbox" value="figma" onchange="updatePreview()"> <i class="devicon-figma-plain colored"></i> Figma</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>🔗 Connect with Me</h2>
+                    <div class="input-group">
+                        <label>LinkedIn URL:</label>
+                        <input type="text" id="linkedin" placeholder="https://linkedin.com/in/...">
+                    </div>
+                    <div class="input-group">
+                        <label>YouTube URL:</label>
+                        <input type="text" id="youtube" placeholder="https://youtube.com/...">
+                    </div>
+                    <div class="input-group">
+                        <label>Website URL:</label>
+                        <input type="text" id="website" placeholder="https://twojastrona.pl">
+                    </div>
+                </div>
+
+            </form>
+
+            <button class="generate-btn" onclick="generujKod()">Generuj Kod Markdown</button>
         </div>
 
-        <div class="preview-box">
-            <h3>Podgląd:</h3>
-            <img id="preview-image" src="" alt="Podgląd pojawi się tutaj" style="display: none;">
-        </div>
+        <div class="preview-panel">
+            <div class="sticky-wrapper">
+                <h3>👁️ Live Preview</h3>
+                <div id="readme-preview" class="markdown-body">
+                    <p style="text-align: center; color: #666; margin-top: 50px;">Wypełnij formularz, aby zobaczyć podgląd...</p>
+                </div>
 
-        <div class="code-box">
-            <h3>Skopiuj kod do README.md:</h3>
-            <textarea id="markdown-code" readonly></textarea>
-            <button onclick="kopiuj()">Kopiuj Kod</button>
+                <div class="code-output" style="display: none;">
+                    <h3>📜 Markdown Code</h3>
+                    <textarea id="finalCode" readonly></textarea>
+                    <button onclick="kopiuj()">Kopiuj do schowka</button>
+                </div>
+            </div>
         </div>
     </div>
 

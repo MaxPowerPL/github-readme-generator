@@ -1,152 +1,204 @@
-/* Resetujemy domyślne marginesy i ustawiamy box-sizing */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* Zapobiega poziomemu przewijaniu strony */
-html, body {
-    overflow-x: hidden;
-}
+/* public/style.css */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     background-color: #0d1117;
     color: #c9d1d9;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; /* Czcionka jak na GitHubie */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px; /* Dodajemy padding, żeby kontener nie dotykał krawędzi na małych ekranach */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    padding: 20px;
+    overflow-x: hidden; /* Zapobiega poziomemu przewijaniu */
 }
 
-.container {
+/* Układ Dwukolumnowy */
+.main-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start; /* Ważne: zapobiega rozciąganiu kolumn na wysokość */
+}
+
+@media (max-width: 900px) {
+    .main-container { flex-direction: column; }
+    .sticky-wrapper { position: static; } /* Na mobilu odklejamy podgląd */
+}
+
+/* --- LEWY PANEL (EDYTOR) --- */
+.editor-panel {
+    flex: 1;
+    min-width: 300px;
+    width: 100%; /* Zabezpieczenie na mobilu */
+}
+
+.section-card {
     background-color: #161b22;
-    padding: 2.5rem; /* Większy padding wewnętrzny */
-    border-radius: 15px;
     border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+h1, h2, h3 { color: #ffffff; margin-bottom: 15px; }
+h2 { font-size: 1.2rem; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
+
+.input-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
+
+input[type="text"], select {
     width: 100%;
-    max-width: 650px; /* Lekko szerszy kontener */
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Delikatny cień */
-}
-
-h1 {
-    margin-bottom: 0.5rem;
-}
-
-p {
-    color: #8b949e;
-    margin-bottom: 2rem;
-}
-
-.input-group {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap; /* Na małych ekranach elementy ułożą się jeden pod drugim */
-}
-
-label {
-    font-weight: bold;
-}
-
-input {
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #30363d;
+    padding: 10px;
     background: #0d1117;
-    color: white;
-    flex-grow: 1; /* Input zajmie dostępne miejsce */
-    min-width: 200px; /* Minimalna szerokość */
-}
-
-input:focus {
-    border-color: #58a6ff;
-    outline: none;
-}
-
-button {
-    padding: 12px 24px;
+    border: 1px solid #30363d;
     border-radius: 6px;
-    border: 1px solid rgba(240, 246, 252, 0.1);
+    color: white;
+}
+
+/* Checkbox group (Stats) */
+.checkbox-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+/* Skills Section - Ulepszona */
+.skills-category {
+    margin-bottom: 15px;
+}
+
+.skills-category h4 {
+    font-size: 0.9rem;
+    color: #8b949e;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #0d1117;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.skill-checkbox:hover { background-color: #21262d; border-color: #8b949e; }
+.skill-checkbox input { margin-right: 5px; } /* Odstęp checkboxa od ikony */
+.skill-checkbox i { font-size: 1.2rem; }
+
+.select-all-btn {
+    background: none;
+    border: none;
+    color: #58a6ff;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 15px;
     background-color: #238636;
     color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s;
-    white-space: nowrap; /* Zapobiega łamaniu tekstu na przycisku */
+    margin-bottom: 50px; /* Margines na dole */
+}
+.generate-btn:hover { background-color: #2ea043; }
+
+/* --- PRAWY PANEL (PODGLĄD) --- */
+.preview-panel {
+    flex: 1;
+    width: 100%;
 }
 
-button:hover {
-    background-color: #2ea043;
+.sticky-wrapper {
+    position: sticky;
+    top: 20px;
 }
 
-/* Sekcja podglądu i kodu */
-.preview-box, .code-box {
-    margin-top: 2rem;
-    text-align: left; /* Tekst nagłówków do lewej */
-}
-
-h3 {
-    margin-bottom: 1rem;
-    color: #58a6ff; /* Kolor akcentu */
-}
-
-/* Kontener na obrazek, żeby był wyśrodkowany */
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px dashed #30363d;
-    border-radius: 10px;
+#readme-preview {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
     padding: 20px;
-    min-height: 150px; /* Minimalna wysokość pustego pola */
-    background-color: #0d1117;
+    min-height: 400px;
 }
 
-/* Stylizacja obrazka podglądu */
-#preview-image {
-    max-width: 100%; /* Obrazek nie wyjdzie poza kontener */
-    height: auto; /* Zachowa proporcje */
-    display: none; /* Domyślnie ukryty */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+/* Style dla elementów wewnątrz podglądu (Markdown styles) */
+#readme-preview img {
+    max-width: 100%;
+    display: block;
+    margin: 10px auto;
+}
+#readme-preview h3 { text-align: center; margin-top: 20px; }
+#readme-preview div { text-align: center; } /* Centruje ikony */
+
+/* Sekcja z kodem wynikowym */
+.code-output {
+    margin-top: 20px;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 15px;
 }
 
-/* Stylizacja textarea */
 textarea {
     width: 100%;
-    height: 100px; /* Stała wysokość */
+    height: 150px;
     background: #0d1117;
-    color: #e6edf3;
     border: 1px solid #30363d;
+    color: #8b949e;
     border-radius: 6px;
-    padding: 12px;
-    font-family: 'Courier New', Courier, monospace; /* Czcionka konsolowa */
-    resize: none; /* ZABLOKOWANIE ręcznego rozciągania */
-    margin-bottom: 10px;
-    white-space: pre-wrap; /* Zawijanie długiego tekstu */
+    padding: 10px;
+    margin-top: 10px;
+    resize: vertical;
+    font-family: monospace;
 }
 
-/* Stylizacja przycisku "Kopiuj Kod" */
-.code-box button {
-    background-color: #21262d;
-    color: #c9d1d9;
-    border: 1px solid #30363d;
-    width: 100%; /* Przycisk na całą szerokość */
+/* Stylizacja przycisku Kopiuj (którego brakowało) */
+.code-output button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #1f6feb; /* Niebieski GitHub */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.code-box button:hover {
-    background-color: #30363d;
-    border-color: #8b949e;
+.code-output button:hover {
+    background-color: #388bfd;
 }
 
-/* --- System Powiadomień (Toasts) --- */
-
+/* --- TOASTY (POWIADOMIENIA) --- */
 #notification-container {
     position: fixed;
     bottom: 20px;
@@ -154,7 +206,7 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .toast {
@@ -164,7 +216,7 @@ textarea {
     color: white;
     font-size: 14px;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -174,40 +226,9 @@ textarea {
     cursor: pointer;
 }
 
-/* Kolory dla różnych typów powiadomień */
-.toast.error {
-    background-color: #da3633; /* Czerwony (GitHub Error) */
-    border-left: 5px solid #8e1515;
-}
+.toast.success { background-color: #238636; border-left: 5px solid #1a5c27; }
+.toast.error { background-color: #da3633; border-left: 5px solid #8e1515; }
+.toast.warning { background-color: #d29922; border-left: 5px solid #9e6a03; color: #0d1117; }
 
-.toast.warning {
-    background-color: #d29922; /* Żółty (GitHub Warning) */
-    color: #0d1117; /* Ciemny tekst dla kontrastu */
-    border-left: 5px solid #9e6a03;
-}
-
-.toast.success {
-    background-color: #238636; /* Zielony (GitHub Success) */
-    border-left: 5px solid #1a5c27;
-}
-
-.toast.info {
-    background-color: #1f6feb; /* Niebieski (GitHub Info) */
-    border-left: 5px solid #113d85;
-}
-
-/* Animacja wjazdu */
-@keyframes slideIn {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Animacja znikania (dodawana przez JS przy usuwaniu) */
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-}
+@keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
