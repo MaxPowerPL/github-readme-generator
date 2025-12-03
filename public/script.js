@@ -16,7 +16,7 @@ function generuj() {
     img.style.display = 'block';
 
     // 2. Generujemy kod Markdown
-    const markdown = `![Statystyki ${username}](${apiUrl})`;
+    const markdown = `[![Statystyki ${username}](${apiUrl})](https://github.com/${username})`;
     document.getElementById('markdown-code').value = markdown;
 }
 
