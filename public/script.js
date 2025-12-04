@@ -452,7 +452,7 @@ function generujKod() {
             // ale w Markdown lepiej dać <br/> lub po prostu linię)
 
             // Format: Italic + Cytat
-            skillsMarkdown += `> ### <i>${titleRaw}</i>\n`;
+            skillsMarkdown += `> ### <i>${titleRaw}</i>\n<h1></h1>\n`;
 
             // Kontener na ikony - wyrównanie do środka (center)
             skillsMarkdown += `<p align="center">\n`;
@@ -460,8 +460,6 @@ function generujKod() {
             checkedBoxes.forEach(cb => {
                 const iconName = cb.value;
                 let variant = 'original';
-                const iconClass = cb.nextElementSibling.className;
-                if (iconClass.includes('plain')) variant = 'plain';
                 if(iconName == "django") variant = "plain";
 
                 const imgSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconName}/${iconName}-${variant}.svg`;
@@ -476,7 +474,7 @@ function generujKod() {
 
     if (hasAnySkill) {
         // Wyśrodkowany nagłówek główny
-        markdown += `<h2 align="center">🛠️ Umiejętności i Narzędzia</h2>\n\n`;
+        markdown += `<h1 align="center">🛠️ Umiejętności i Narzędzia</h1>\n\n`;
         markdown += skillsMarkdown;
     }
 
