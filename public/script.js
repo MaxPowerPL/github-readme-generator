@@ -252,10 +252,10 @@ function updatePreview() {
     const typingText = document.getElementById('typingText').value || 'Witaj świecie';
     const theme = document.getElementById('themeSelect').value;
 
-    const showStats = document.getElementById('showStats').checked;
-    const showTrophies = document.getElementById('showTrophies').checked;
-    const showStreak = document.getElementById('showStreak').checked;
-    const showTopLanguage = document.getElementById('showTopLanguage').checked;
+    const showStats = document.getElementById('showStats');
+    const showTrophies = document.getElementById('showTrophies');
+    const showStreak = document.getElementById('showStreak');
+    const showTopLanguage = document.getElementById('showTopLanguage');
 
     const previewDiv = document.getElementById('readme-preview');
 

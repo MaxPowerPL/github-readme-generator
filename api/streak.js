@@ -91,7 +91,7 @@ export default async function handler(req, res) {
 
     const svg = `
       <svg width="300" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="150" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
+        <rect width="350" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
         <text x="200" y="35" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.text}" font-weight="bold" text-anchor="middle">
           🔥 Current Streak
