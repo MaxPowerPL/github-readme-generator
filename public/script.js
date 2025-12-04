@@ -1,7 +1,62 @@
+const API_ENDPOINTS = {
+    'showHeader': 'https://capsule-render.vercel.app',
+    'showTyping': 'https://readme-typing-svg.demolab.com',
+    'showTrophies': 'https://github-profile-trophy.vercel.app/?username=testuser',
+    'showStreak': 'https://streak-stats.demolab.com/?user=testuser'
+};
+
 // Funkcja zbiorcza - aktualizuje podgląd i liczniki
 function updateUI() {
     updatePreview();
     updateCounters();
+}
+
+// --- NOWA FUNKCJA: SPRAWDZANIE STANU API ---
+async function checkExternalAPIs() {
+    for (const [checkboxId, url] of Object.entries(API_ENDPOINTS)) {
+        const checkbox = document.getElementById(checkboxId);
+        const label = checkbox.nextElementSibling; // Pobieramy label obok checkboxa
+
+        if (!checkbox) continue;
+
+        try {
+            // Wysyłamy zapytanie HEAD (tylko nagłówki) lub GET, żeby sprawdzić czy API żyje
+            // Używamy trybu 'no-cors' dla obrazków, ale fetch może rzucić błąd sieci
+            // Uwaga: 'no-cors' nie zwróci statusu 503 w JS, ale pozwoli wykryć błąd sieci.
+            // Lepszą metodą jest próba załadowania obrazka w tle.
+
+            await checkImageLoad(url);
+
+            // Jeśli sukces - nic nie robimy (jest aktywne)
+        } catch (error) {
+            console.warn(`API Error for ${checkboxId}:`, error);
+
+            // Blokujemy checkbox
+            checkbox.checked = false;
+            checkbox.disabled = true;
+
+            // Dodajemy informację o błędzie
+            if (!label.querySelector('.api-error-note')) {
+                const errorSpan = document.createElement('span');
+                errorSpan.className = 'api-error-note';
+                errorSpan.textContent = "(Przerwa techniczna API)";
+                label.appendChild(errorSpan);
+            }
+
+            // Aktualizujemy UI żeby zniknął z podglądu
+            updateUI();
+        }
+    }
+}
+
+// Funkcja pomocnicza: Próbuje załadować obrazek w tle
+function checkImageLoad(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => reject(false); // Błąd ładowania = API leży
+        img.src = url;
+    });
 }
 
 // Funkcja aktualizująca liczniki w nagłówkach kategorii
@@ -96,7 +151,7 @@ function toggleCategory(btn) {
 function updatePreview() {
     const name = document.getElementById('headerName').value || 'Twoje Imię';
     const subtitle = document.getElementById('subtitle').value || 'Deweloper';
-    const username = document.getElementById('username').value || 'TwojNick';
+    const username = document.getElementById('username').value || '';
     const typingText = document.getElementById('typingText').value || 'Witaj świecie';
     const theme = document.getElementById('themeSelect').value;
 

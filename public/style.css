@@ -127,6 +127,28 @@ input[type="text"], select {
     outline: none;
 }
 
+/* Styl dla zablokowanych (disabled) opcji */
+.checkbox-group input[type="checkbox"]:disabled + label {
+    color: #484f58; /* Ciemnoszary, nieaktywny kolor */
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.checkbox-group input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #21262d;
+}
+
+/* Opcjonalnie: tooltip lub dopisek błędu */
+.api-error-note {
+    font-size: 0.75rem;
+    color: #da3633; /* Czerwony kolor błędu */
+    margin-left: 5px;
+    font-weight: normal;
+    text-decoration: none !important;
+}
+
 /* --- Skills Section - Nowoczesny Wygląd --- */
 
 .skills-category {
