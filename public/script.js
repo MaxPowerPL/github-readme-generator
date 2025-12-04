@@ -411,7 +411,7 @@ function generujKod() {
     // --- 3. STATS SECTION ---
     if (showStats || showTrophies || showStreak || showTopLanguage) {
         // Wyśrodkowany nagłówek
-        markdown += `<h1 align="center">📊 GitHub Stats</h1>\n\n`;
+        markdown += `<h2 align="center">📊 GitHub Stats</h2>\n\n`;
         markdown += `<div align="center">\n`;
 
         if (showTrophies) {
@@ -475,7 +475,7 @@ function generujKod() {
     if (hasAnySkill) {
         // Wyśrodkowany nagłówek główny
         markdown += `<br><br><br>\n\n`;
-        markdown += `<h1 align="center">🛠️ Umiejętności i Narzędzia</h1>\n\n`;
+        markdown += `<h2 align="center">🛠️ Umiejętności i Narzędzia</h2>\n\n`;
         markdown += skillsMarkdown;
     }
 
