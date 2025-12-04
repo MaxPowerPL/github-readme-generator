@@ -40,9 +40,9 @@ function toggleCategory(btn) {
 // Funkcja aktualizująca podgląd na żywo
 function updatePreview() {
     const name = document.getElementById('headerName').value || 'Twoje Imię';
-    const subtitle = document.getElementById('subtitle').value || 'Developer';
+    const subtitle = document.getElementById('subtitle').value || 'Deweloper';
     const username = document.getElementById('username').value || 'TwojNick';
-    const typingText = document.getElementById('typingText').value || 'Hello World';
+    const typingText = document.getElementById('typingText').value || 'Witaj świecie';
     const theme = document.getElementById('themeSelect').value;
 
     const showStats = document.getElementById('showStats').checked;
@@ -54,7 +54,7 @@ function updatePreview() {
     let html = '';
 
     // 1. Header
-    html += `<img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=${encodeURIComponent(name)}&desc=${encodeURIComponent(subtitle)}&fontColor=fff" style="width: 100%">`;
+    html += `<img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&customColorList=6,11,20,29&text=${encodeURIComponent(name)}&fontSize=48&fontColor=fff&animation=twinkling&fontAlignY=35&desc=${encodeURIComponent(subtitle)}&descSize=18&descAlignY=55&textBg=false" style="width: 100%">`;
 
     // 2. Typing SVG
     html += `<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=4000&color=00FF41&center=true&vCenter=true&width=600&lines=${encodeURIComponent(typingText)}" style="display:block; margin: 20px auto;">`;

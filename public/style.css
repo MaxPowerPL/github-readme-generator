@@ -12,8 +12,8 @@ body {
 /* Układ Dwukolumnowy */
 .main-container {
     display: flex;
-    gap: 30px;
-    max-width: 1400px;
+    gap: 50px;
+    max-width: 1600px;
     margin: 0 auto;
     align-items: flex-start; /* Ważne: zapobiega rozciąganiu kolumn na wysokość */
 }
@@ -53,67 +53,216 @@ input[type="text"], select {
     color: white;
 }
 
-/* Checkbox group (Stats) */
+/* Checkbox group (Stats & Theme) */
 .checkbox-group {
     display: flex;
-    gap: 15px;
-    margin-top: 10px;
-    flex-wrap: wrap;
+    flex-direction: column; /* Ustawiamy je jeden pod drugim dla czytelności */
+    gap: 12px;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #0d1117; /* Ciemniejsze tło kontenera */
+    border-radius: 6px;
+    border: 1px solid #30363d;
 }
 
-.checkbox-group label {
+.checkbox-group #checkbox-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0 10px;
+}
+
+.checkbox-group #checkbox-row label {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     cursor: pointer;
-    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #c9d1d9;
+    user-select: none; /* Zapobiega zaznaczaniu tekstu przy szybkim klikaniu */
+    transition: color 0.2s;
 }
 
-/* Skills Section - Ulepszona */
+.checkbox-group #checkbox-row label:hover {
+    color: #58a6ff; /* Niebieski kolor po najechaniu */
+}
+
+/* Stylowanie samego kwadracika checkboxa */
+.checkbox-group #checkbox-row input[type="checkbox"] {
+    appearance: none; /* Ukrywamy domyślny wygląd */
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #30363d;
+    border-radius: 4px;
+    background-color: #161b22;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Stan zaznaczony (checked) */
+.checkbox-group #checkbox-row input[type="checkbox"]:checked {
+    background-color: #238636; /* Zielony kolor GitHub */
+    border-color: #238636;
+}
+
+/* "Ptaszka" (checkmark) w środku */
+.checkbox-group #checkbox-row input[type="checkbox"]:checked::after {
+    content: '✔';
+    font-size: 10px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+/* Efekt focus (dla dostępności klawiatury) */
+.checkbox-group #checkbox-row input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 3px rgba(35, 134, 54, 0.4);
+    outline: none;
+}
+
+/* --- Skills Section - Nowoczesny Wygląd --- */
+
 .skills-category {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+/* Nagłówek kategorii z licznikiem i przyciskiem */
+.skills-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #30363d;
 }
 
 .skills-category h4 {
-    font-size: 0.9rem;
-    color: #8b949e;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.skill-checkbox {
+    font-size: 0.95rem;
+    color: #c9d1d9;
+    margin: 0;
+    text-transform: none; /* Wyłączamy uppercase dla czytelności */
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px;
+}
+
+/* Badge z licznikiem */
+.counter-badge {
+    background-color: #21262d;
+    color: #8b949e;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+}
+
+/* Siatka kafelków (Grid) */
+.skills-grid {
+    display: grid;
+    /* Automatyczne dopasowanie kolumn (min 140px szerokości) */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+/* Wygląd kafelka (Label) */
+.skill-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
     border: 1px solid #30363d;
     border-radius: 6px;
     cursor: pointer;
     background-color: #0d1117;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     font-size: 0.9rem;
+    position: relative;
+    user-select: none;
 }
 
-.skill-checkbox:hover { background-color: #21262d; border-color: #8b949e; }
-.skill-checkbox input { margin-right: 5px; } /* Odstęp checkboxa od ikony */
-.skill-checkbox i { font-size: 1.2rem; }
+/* Efekt hover na kafelku */
+.skill-checkbox:hover {
+    background-color: #161b22;
+    border-color: #8b949e;
+}
 
+/* --- STYL ZAZNACZONEGO KAFELKA --- */
+/* Używamy nowoczesnego selektora :has() - działa w Chrome, Edge, Safari, Firefox */
+.skill-checkbox:has(input:checked) {
+    background-color: rgba(56, 139, 253, 0.1); /* Delikatne niebieskie tło */
+    border-color: #58a6ff; /* Niebieska ramka */
+    box-shadow: 0 0 0 1px #58a6ff; /* Pogrubienie ramki */
+}
+
+/* Ukrywamy domyślny input, ale zostawiamy go w DOM dla dostępności */
+.skill-checkbox input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #30363d;
+    border-radius: 4px;
+    background-color: #0d1117;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0; /* Zapobiega zgniataniu checkboxa */
+}
+
+/* Wygląd "ptaszka" w checkboxie */
+.skill-checkbox input:checked {
+    background-color: #238636; /* Zielony kolor zaznaczenia */
+    border-color: #238636;
+}
+
+.skill-checkbox input:checked::after {
+    content: '✔';
+    font-size: 12px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Ikony technologii */
+.skill-checkbox i {
+    font-size: 1.4rem; /* Nieco większe ikony */
+    margin-right: 2px;
+}
+
+/* Przycisk Zaznacz wszystkie - Styl "Button" */
 .select-all-btn {
-    background: none;
-    border: none;
-    color: #58a6ff;
+    background-color: #21262d;
+    border: 1px solid rgba(240, 246, 252, 0.1);
+    color: #c9d1d9;
     cursor: pointer;
-    font-size: 0.8rem;
-    margin-bottom: 10px;
-    text-decoration: underline;
-    padding: 0;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.select-all-btn:hover {
+    background-color: #30363d;
+    border-color: #8b949e;
+    color: white;
+}
+
+/* Aktywny stan przycisku (gdy wszystko zaznaczone - opcjonalne) */
+.select-all-btn.active {
+    background-color: rgba(56, 139, 253, 0.15);
+    color: #58a6ff;
+    border-color: #58a6ff;
 }
 
 .generate-btn {
@@ -132,7 +281,7 @@ input[type="text"], select {
 
 /* --- PRAWY PANEL (PODGLĄD) --- */
 .preview-panel {
-    flex: 1;
+    flex: 2;
     width: 100%;
 }
 
@@ -169,7 +318,8 @@ input[type="text"], select {
 
 textarea {
     width: 100%;
-    height: 150px;
+    height: 200px;
+    max-height: 300px;
     background: #0d1117;
     border: 1px solid #30363d;
     color: #8b949e;
