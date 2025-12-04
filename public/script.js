@@ -1,8 +1,13 @@
 const API_ENDPOINTS = {
     'showHeader': 'https://capsule-render.vercel.app',
     'showTyping': 'https://readme-typing-svg.demolab.com',
-    'showTrophies': 'https://github-profile-trophy.vercel.app/?username=testuser',
-    'showStreak': 'https://streak-stats.demolab.com/?user=testuser'
+    'showTrophies': 'https://github-profile-trophy.vercel.app/?username=testuser&theme=default',
+    'showStreak': 'https://streak-stats.demolab.com/?user=testuser&theme=default'
+};
+
+window.onload = function() {
+    checkExternalAPIs(); // Sprawdź dostępność API przy starcie
+    updateUI();
 };
 
 // Funkcja zbiorcza - aktualizuje podgląd i liczniki
@@ -15,19 +20,15 @@ function updateUI() {
 async function checkExternalAPIs() {
     for (const [checkboxId, url] of Object.entries(API_ENDPOINTS)) {
         const checkbox = document.getElementById(checkboxId);
-        const label = checkbox.nextElementSibling; // Pobieramy label obok checkboxa
 
         if (!checkbox) continue;
 
+        // Znajdujemy label. W Twoim HTML jest on zaraz po checkboxie.
+        const label = checkbox.nextElementSibling;
+
         try {
-            // Wysyłamy zapytanie HEAD (tylko nagłówki) lub GET, żeby sprawdzić czy API żyje
-            // Używamy trybu 'no-cors' dla obrazków, ale fetch może rzucić błąd sieci
-            // Uwaga: 'no-cors' nie zwróci statusu 503 w JS, ale pozwoli wykryć błąd sieci.
-            // Lepszą metodą jest próba załadowania obrazka w tle.
-
             await checkImageLoad(url);
-
-            // Jeśli sukces - nic nie robimy (jest aktywne)
+            // Jeśli sukces - nic nie robimy
         } catch (error) {
             console.warn(`API Error for ${checkboxId}:`, error);
 
@@ -35,11 +36,16 @@ async function checkExternalAPIs() {
             checkbox.checked = false;
             checkbox.disabled = true;
 
-            // Dodajemy informację o błędzie
-            if (!label.querySelector('.api-error-note')) {
+            // Dodajemy informację o błędzie (tylko raz)
+            if (label && !label.querySelector('.api-error-note')) {
                 const errorSpan = document.createElement('span');
                 errorSpan.className = 'api-error-note';
-                errorSpan.textContent = "(Przerwa techniczna API)";
+                errorSpan.textContent = " (Przerwa techniczna API)";
+                // Styl inline dla pewności, że zadziała nawet bez CSS
+                errorSpan.style.color = '#da3633';
+                errorSpan.style.fontSize = '0.75rem';
+                errorSpan.style.marginLeft = '5px';
+
                 label.appendChild(errorSpan);
             }
 
@@ -53,9 +59,30 @@ async function checkExternalAPIs() {
 function checkImageLoad(url) {
     return new Promise((resolve, reject) => {
         const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => reject(false); // Błąd ładowania = API leży
-        img.src = url;
+        // Timeout: Jeśli obrazek nie załaduje się w 5 sekund, uznajemy to za błąd
+        const timer = setTimeout(() => {
+            img.src = ""; // Anuluj ładowanie
+            reject("Timeout");
+        }, 5000);
+
+        img.onload = () => {
+            clearTimeout(timer);
+            // Dodatkowe sprawdzenie: czy obrazek nie jest "pusty" (bardzo mały)
+            // Niektóre API zwracają obrazek 1x1px jak jest błąd
+            if (img.width < 10 || img.height < 10) {
+                reject("Image too small (error placeholder)");
+            } else {
+                resolve(true);
+            }
+        };
+
+        img.onerror = () => {
+            clearTimeout(timer);
+            reject("Network error or 404/503");
+        };
+
+        // Dodajemy losowy parametr, żeby ominąć cache przeglądarki
+        img.src = url + "&t=" + new Date().getTime();
     });
 }
 
@@ -101,7 +128,10 @@ function toggleCategory(btn) {
     const categoryDiv = btn.closest('.skills-category');
     const checkboxes = categoryDiv.querySelectorAll('.skills-grid input[type="checkbox"]');
 
-    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    // Sprawdzamy czy WSZYSTKIE widoczne i aktywne są zaznaczone
+    // (pomijamy zablokowane disabled!)
+    const activeCheckboxes = Array.from(checkboxes).filter(cb => !cb.disabled);
+    const allChecked = activeCheckboxes.every(cb => cb.checked);
 
     checkboxes.forEach(cb => {
         cb.checked = !allChecked;
@@ -363,6 +393,3 @@ function kopiuj() {
             showNotification("Błąd kopiowania.", "error");
         });
 }
-
-// Inicjalizacja podglądu przy starcie
-window.onload = updateUI;
