@@ -6,27 +6,81 @@ export default async function handler(req, res) {
   if (!username) return res.status(400).send('Brak username');
 
   try {
-    // 1. Pobieramy zdarzenia (events) użytkownika z GitHuba
-    // Uwaga: To prosta wersja bazująca na publicznych zdarzeniach.
-    // Prawdziwy, idealny streak wymagałby tokena i przeszukiwania wszystkich repozytoriów,
-    // ale na start wystarczy analiza ostatnich aktywności.
-    const response = await axios.get(`https://api.github.com/users/${username}/events`, {
-      headers: { 'User-Agent': 'github-readme-generator' }
-    });
+    // Pobieramy Token z Vercela (zmiennych środowiskowych)
+    const token = process.env.GITHUB_TOKEN;
 
-    const events = response.data;
-    const today = new Date().toISOString().split('T')[0];
+    if (!token) {
+        return res.status(500).send('Brak konfiguracji GITHUB_TOKEN w Vercelu');
+    }
 
-    // Prosta logika streaka (dla celów edukacyjnych)
-    // Sprawdzamy czy był commit dzisiaj lub wczoraj
+    // Zapytanie GraphQL do GitHuba o historię kontrybucji
+    const query = `
+      query($user: String!) {
+        user(login: $user) {
+          createdAt
+          contributionsCollection {
+            contributionCalendar {
+              weeks {
+                contributionDays {
+                  contributionCount
+                  date
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await axios.post(
+      'https://api.github.com/graphql',
+      { query, variables: { user: username } },
+      { headers: { Authorization: `bearer ${token}` } }
+    );
+
+    if (response.data.errors) {
+        throw new Error('User not found or API error');
+    }
+
+    const calendar = response.data.data.user.contributionsCollection.contributionCalendar;
+
+    // --- ALGORYTM OBLICZANIA STREAKA ---
     let currentStreak = 0;
-    // (Tutaj musiałbyś zaimplementować pełną logikę zliczania dat,
-    //  dla uproszczenia demo zrobimy symulację na podstawie ilości eventów)
+    let longestStreak = 0; // (Opcjonalnie można dodać do wyświetlania)
 
-    // W tej wersji zrobimy ładną kartę "Mockup" pokazującą jak to wygląda
-    // Żeby działało naprawdę precyzyjnie, potrzebowałbyś GraphQL API.
+    // Spłaszczamy strukturę tygodni do jednej listy dni
+    const days = calendar.weeks.flatMap(week => week.contributionDays);
 
-    // Motywy (skopiuj z index.js lub wydziel do oddzielnego pliku utils.js)
+    // Sortujemy od najnowszego do najstarszego
+    const reversedDays = days.reverse();
+
+    // Sprawdzamy dzisiaj i wczoraj (żeby streak nie zerował się w środku dnia)
+    const today = new Date().toISOString().split('T')[0];
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+    // Szukamy indeksu startowego (dzisiaj lub wczoraj)
+    let startIndex = -1;
+    if (reversedDays[0].date === today && reversedDays[0].contributionCount > 0) {
+        startIndex = 0;
+    } else if (reversedDays[0].date === today && reversedDays[0].contributionCount === 0) {
+        // Jeśli dzisiaj jeszcze nic nie zrobiłeś, sprawdzamy wczoraj
+        if (reversedDays.length > 1 && reversedDays[1].date === yesterday && reversedDays[1].contributionCount > 0) {
+            startIndex = 1;
+        }
+    }
+
+    // Liczymy streak
+    if (startIndex !== -1) {
+        for (let i = startIndex; i < reversedDays.length; i++) {
+            if (reversedDays[i].contributionCount > 0) {
+                currentStreak++;
+            } else {
+                break; // Przerwa w commitowaniu = koniec streaka
+            }
+        }
+    }
+
+    // --- GENEROWANIE SVG ---
     const themes = {
         default: { bg: '#1a1b27', stroke: '#00f2ff', text: '#ffffff', ring: '#00f2ff' },
         gruvbox: { bg: '#282828', stroke: '#ebdbb2', text: '#ebdbb2', ring: '#fabd2f' },
@@ -39,16 +93,16 @@ export default async function handler(req, res) {
       <svg width="400" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
         <rect width="400" height="150" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
-        <text x="200" y="30" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.text}" font-weight="bold" text-anchor="middle">
+        <text x="200" y="35" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.text}" font-weight="bold" text-anchor="middle">
           🔥 Current Streak
         </text>
 
-        <text x="200" y="80" font-family="Segoe UI, sans-serif" font-size="48" fill="${t.text}" font-weight="bold" text-anchor="middle">
-          ${events.length > 0 ? Math.floor(Math.random() * 10) + 1 : 0} days
+        <text x="200" y="90" font-family="Segoe UI, sans-serif" font-size="56" fill="${t.text}" font-weight="bold" text-anchor="middle">
+          ${currentStreak} days
         </text>
 
-        <text x="200" y="110" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
-          (Demo Mode - Real data requires GraphQL)
+        <text x="200" y="125" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
+          ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </text>
       </svg>
     `;
@@ -58,6 +112,7 @@ export default async function handler(req, res) {
     res.status(200).send(svg);
 
   } catch (error) {
+    console.error(error);
     res.status(500).send('Error');
   }
 }
