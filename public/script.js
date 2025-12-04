@@ -255,6 +255,7 @@ function updatePreview() {
     const showStats = document.getElementById('showStats').checked;
     const showTrophies = document.getElementById('showTrophies').checked;
     const showStreak = document.getElementById('showStreak').checked;
+    const showTopLanguage = document.getElementById('showTopLanguage').checked;
 
     const previewDiv = document.getElementById('readme-preview');
 
@@ -284,6 +285,11 @@ function updatePreview() {
         if (showStreak) {
             const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
             html += `<img src="${myStreakUrl}">`;
+        }
+
+        if (showTopLanguage) {
+            const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
+            html += `<img src="${myTopLanguageUrl}">`
         }
         html += `</div>`;
     }
