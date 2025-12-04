@@ -2,7 +2,7 @@ const API_ENDPOINTS = {
     'showHeader': 'https://capsule-render.vercel.app/api?type=wave&text=test',
     'showTyping': 'https://readme-typing-svg.demolab.com?lines=test',
     'showTrophies': 'https://github-profile-trophy.vercel.app/?username=testuser&theme=default',
-    'showStreak': 'https://streak-stats.demolab.com/?user=testuser&theme=default'
+    'showStreak': 'https://streak-stats.demolab.com/?user=MaxPowerPL&theme=default'
 };
 
 window.onload = function() {
