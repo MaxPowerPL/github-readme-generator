@@ -1,4 +1,4 @@
-i// Funkcja zbiorcza - aktualizuje podgląd i liczniki
+// Funkcja zbiorcza - aktualizuje podgląd i liczniki
 function updateUI() {
     updatePreview();
     updateCounters();
