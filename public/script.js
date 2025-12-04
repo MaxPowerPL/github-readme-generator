@@ -25,6 +25,7 @@ async function checkExternalAPIs() {
 
         // Pobieramy rodzica (div#checkbox-row), żeby wstawić błąd OBOK labela, a nie W NIM
         const parentDiv = checkbox.parentElement;
+        await verifySingleApi(checkboxId, url);
 
         try {
             await checkImageLoad(url);
@@ -50,6 +51,74 @@ async function checkExternalAPIs() {
             updateUI();
         }
     }
+}
+
+// Nowa funkcja sprawdzająca pojedyncze API (używana przy starcie i przy Retry)
+async function verifySingleApi(checkboxId, url) {
+    const checkbox = document.getElementById(checkboxId);
+    if (!checkbox) return;
+
+    const parentDiv = checkbox.parentElement; // div#checkbox-row
+
+    // Usuwamy stare błędy i przyciski, jeśli istnieją, żeby nie dublować
+    const existingError = parentDiv.querySelector('.api-error-note');
+    const existingRetry = parentDiv.querySelector('.api-retry-btn');
+    if (existingError) existingError.remove();
+    if (existingRetry) existingRetry.remove();
+
+    try {
+        await checkImageLoad(url);
+
+        // SUKCES: Odblokowujemy checkbox
+        checkbox.disabled = false;
+        // Opcjonalnie: przywracamy zaznaczenie, jeśli chcesz (tu zostawiam bez zmian)
+
+    } catch (error) {
+        console.warn(`API Error for ${checkboxId}:`, error);
+
+        // BŁĄD: Blokujemy checkbox
+        checkbox.checked = false;
+        checkbox.disabled = true;
+
+        // 1. Dodajemy komunikat błędu
+        const errorSpan = document.createElement('span');
+        errorSpan.className = 'api-error-note';
+        errorSpan.textContent = "(Przerwa techniczna)";
+        parentDiv.appendChild(errorSpan);
+
+        // 2. Dodajemy przycisk Odśwież (Retry)
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'api-retry-btn';
+        retryBtn.title = "Spróbuj ponownie";
+        retryBtn.innerHTML = '🔄'; // Ikona Unicode (możesz dać SVG)
+
+        // Obsługa kliknięcia
+        retryBtn.onclick = function() {
+            retryApiCheck(this, checkboxId, url);
+        };
+
+        parentDiv.appendChild(retryBtn);
+
+        // Aktualizujemy UI (żeby odznaczone zniknęło z podglądu)
+        updateUI();
+    }
+}
+
+// Funkcja obsługująca kliknięcie w ikonkę odświeżania
+async function retryApiCheck(btn, checkboxId, url) {
+    // 1. Dodajemy klasę animacji (kręcenie)
+    btn.classList.add('spinning');
+
+    // 2. Czekamy chwilę (dla efektu wizualnego + realne sprawdzenie)
+    // checkImageLoad jest szybkie, więc warto dać min. 500ms żeby użytkownik widział reakcję
+    const minWait = new Promise(r => setTimeout(r, 800));
+
+    // Sprawdzamy API ponownie
+    await verifySingleApi(checkboxId, url);
+
+    // Uwaga: Funkcja verifySingleApi sama usunie przycisk jeśli się uda,
+    // albo stworzy go na nowo jeśli się nie uda.
+    // Więc nie musimy ręcznie usuwać klasy 'spinning', bo przycisk zniknie/zostanie podmieniony.
 }
 
 // Funkcja pomocnicza: Próbuje załadować obrazek w tle

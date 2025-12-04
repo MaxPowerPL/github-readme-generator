@@ -1,4 +1,8 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
     background-color: #0d1117;
@@ -12,7 +16,7 @@ body {
 .main-container {
     display: flex;
     gap: 50px;
-    max-width: 1600px;
+    max-width: 1650px;
     margin: 0 auto;
     align-items: flex-start; /* Ważne: zapobiega rozciąganiu kolumn na wysokość */
 }
@@ -25,7 +29,7 @@ body {
 /* --- LEWY PANEL (EDYTOR) --- */
 .editor-panel {
     flex: 1;
-    min-width: 300px;
+    min-width: 350px;
     width: 100%; /* Zabezpieczenie na mobilu */
 }
 
@@ -144,7 +148,7 @@ input[type="text"], select {
 }
 
 /* 3. Styl komunikatu o błędzie - OSOBNY ELEMENT */
-.api-error-note {
+.checkbox-group #checkbox-row .api-error-note {
     font-size: 0.75rem;
     color: #da3633; /* Czerwony */
     margin-left: 8px;
@@ -152,6 +156,37 @@ input[type="text"], select {
     text-decoration: none; /* Brak przekreślenia */
     cursor: default;
     opacity: 1; /* Pełna widoczność mimo disabled inputa obok */
+}
+
+/* Przycisk odświeżania API */
+.checkbox-group #checkbox-row .api-retry-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem; /* Rozmiar ikonki */
+    color: #8b949e;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    vertical-align: middle;
+}
+
+.checkbox-group #checkbox-row .api-retry-btn:hover {
+    color: #58a6ff;
+}
+
+/* Animacja obracania (spin) */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.checkbox-group #checkbox-row .api-retry-btn.spinning {
+    animation: spin 1s linear infinite;
+    pointer-events: none; /* Blokujemy klikanie podczas kręcenia */
+    color: #58a6ff;
 }
 
 /* --- Skills Section - Nowoczesny Wygląd --- */
