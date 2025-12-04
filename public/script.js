@@ -60,7 +60,7 @@ function checkImageLoad(url) {
         const timer = setTimeout(() => {
             img.src = ""; // Anuluj ładowanie
             reject("Timeout");
-        }, 5000);
+        }, 10000);
 
         img.onload = () => {
             clearTimeout(timer);
