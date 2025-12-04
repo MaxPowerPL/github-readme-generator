@@ -1,4 +1,59 @@
-/* public/script.js */
+// Funkcja zbiorcza - aktualizuje podgląd i liczniki
+function updateUI() {
+    updatePreview();
+    updateCounters();
+}
+
+// Funkcja aktualizująca liczniki w nagłówkach kategorii
+function updateCounters() {
+    const categories = document.querySelectorAll('.skills-category');
+
+    categories.forEach(category => {
+        const checkboxes = category.querySelectorAll('input[type="checkbox"]');
+        const checkedCount = category.querySelectorAll('input[type="checkbox"]:checked').length;
+        const totalCount = checkboxes.length;
+
+        // Znajdź badge licznika w tej kategorii
+        const counterBadge = category.querySelector('.counter-badge');
+        if (counterBadge) {
+            counterBadge.textContent = `${checkedCount}/${totalCount}`;
+
+            // Opcjonalnie: zmień kolor jak coś jest zaznaczone
+            if (checkedCount > 0) {
+                counterBadge.style.color = '#58a6ff';
+                counterBadge.style.borderColor = '#58a6ff';
+            } else {
+                counterBadge.style.color = '#8b949e';
+                counterBadge.style.borderColor = '#30363d';
+            }
+        }
+
+        // Aktualizacja tekstu przycisku (Zaznacz / Odznacz)
+        const btn = category.querySelector('.select-all-btn');
+        if (btn) {
+            if (checkedCount === totalCount) {
+                btn.textContent = "Odznacz wszystkie";
+            } else {
+                btn.textContent = "Zaznacz wszystkie";
+            }
+        }
+    });
+}
+
+// Zmodyfikowana funkcja toggleCategory
+function toggleCategory(btn) {
+    // Przycisk jest teraz w .skills-category-header, więc musimy wyjść wyżej do .skills-category
+    const categoryDiv = btn.closest('.skills-category');
+    const checkboxes = categoryDiv.querySelectorAll('.skills-grid input[type="checkbox"]');
+
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+
+    checkboxes.forEach(cb => {
+        cb.checked = !allChecked;
+    });
+
+    updateUI(); // Odświeżamy wszystko
+}
 
 // Funkcja obsługująca powiadomienia (Toasty)
 function showNotification(message, type = 'info') {
@@ -34,7 +89,7 @@ function toggleCategory(btn) {
         cb.checked = !allChecked;
     });
 
-    updatePreview(); // Odświeżamy podgląd
+    updateUI(); // Odświeżamy podgląd
 }
 
 // Funkcja aktualizująca podgląd na żywo
@@ -162,4 +217,4 @@ function kopiuj() {
 }
 
 // Inicjalizacja podglądu przy starcie
-window.onload = updatePreview;
+window.onload = updateUI;
