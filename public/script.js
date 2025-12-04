@@ -452,7 +452,7 @@ function generujKod() {
             // ale w Markdown lepiej dać <br/> lub po prostu linię)
 
             // Format: Italic + Cytat
-            skillsMarkdown += `> ### <i>${titleRaw}</i>\n<h1></h1>\n`;
+            skillsMarkdown += `> ## <i>${titleRaw}</i>\n`;
 
             // Kontener na ikony - wyrównanie do środka (center)
             skillsMarkdown += `<p align="center">\n`;
@@ -474,7 +474,7 @@ function generujKod() {
 
     if (hasAnySkill) {
         // Wyśrodkowany nagłówek główny
-        markdown += `<br><br>\n\n`;
+        markdown += `<br><br><br>\n\n`;
         markdown += `<h1 align="center">🛠️ Umiejętności i Narzędzia</h1>\n\n`;
         markdown += skillsMarkdown;
     }
@@ -486,7 +486,7 @@ function generujKod() {
 
     if(linkedin || youtube || website) {
         // Wyśrodkowany nagłówek
-        markdown += `<br><br>\n\n`;
+        markdown += `<br><br><br>\n\n`;
         markdown += `<h2 align="center">🔗 Połącz się ze mną</h2>\n`;
         markdown += `<p align="center">\n`;
 
