@@ -1,4 +1,4 @@
-// Funkcja zbiorcza - aktualizuje podgląd i liczniki
+i// Funkcja zbiorcza - aktualizuje podgląd i liczniki
 function updateUI() {
     updatePreview();
     updateCounters();
@@ -109,35 +109,66 @@ function updatePreview() {
     let html = '';
 
     // 1. Header
-    html += `<img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&customColorList=6,11,20,29&text=${encodeURIComponent(name)}&fontSize=48&fontColor=fff&animation=twinkling&fontAlignY=35&desc=${encodeURIComponent(subtitle)}&descSize=18&descAlignY=55&textBg=false" style="width: 100%">`;
+    html += `<img id="header" src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&customColorList=6,11,20,29&text=${encodeURIComponent(name)}&fontSize=48&fontColor=fff&animation=twinkling&fontAlignY=35&desc=${encodeURIComponent(subtitle)}&descSize=18&descAlignY=55&textBg=false" />`;
 
     // 2. Typing SVG
-    html += `<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=4000&color=00FF41&center=true&vCenter=true&width=600&lines=${encodeURIComponent(typingText)}" style="display:block; margin: 20px auto;">`;
+    html += `<div id="typing-section">
+                <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=4000&color=00FF41&center=true&vCenter=true&width=600&lines=${encodeURIComponent(typingText)}">
+            </div>`;
 
     // 3. Stats Section
+    html += `<div id="stats-section">`;
     if (showTrophies) {
-        html += `<img src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4" style="display:block; margin: 10px auto;">`;
+        html += `<img id="trophy"src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4"> <br>`;
     }
 
     if (showStats) {
         const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}`;
-        html += `<img src="${myApiUrl}" style="display:block; margin: 10px auto; width: 80%;">`;
+        // Używamy flexboxa dla statystyk, żeby były obok siebie jeśli jest miejsce
+        html += `<div id="stats">`;
+        html += `<img src="${myApiUrl}">`;
 
         if (showStreak) {
-            html += `<img src="https://streak-stats.demolab.com/?user=${username}&theme=${theme}&hide_border=true" style="display:block; margin: 10px auto; width: 80%;">`;
+            html += `<img src="https://streak-stats.demolab.com/?user=${username}&theme=${theme}&hide_border=true">`;
         }
-    }
-
-    // 4. Skills Section (Grupowanie)
-    // Pobieramy zaznaczone checkboxy
-    const checkboxes = document.querySelectorAll('.skills-grid input:checked');
-    if (checkboxes.length > 0) {
-        html += `<h3 style="text-align:center; margin-top:20px;">🛠️ Skills</h3><div style="text-align:center;">`;
-        checkboxes.forEach(cb => {
-            html += `<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${cb.value}/${cb.value}-original.svg" width="40" height="40" style="margin:5px;">`;
-        });
         html += `</div>`;
     }
+    html += `</div>`;
+
+    // 4. Skills Section (Z Podziałem na kategorie)
+    const categories = document.querySelectorAll('.skills-category');
+    let hasSkills = false;
+
+    html += `<div id="skills">`;
+    categories.forEach(category => {
+        // Pobieramy nazwę kategorii z nagłówka h4 (usuwamy tekst przycisku)
+        const titleRaw = category.querySelector('h4').childNodes[0].textContent.trim();
+        const checkedBoxes = category.querySelectorAll('input:checked');
+
+        if (checkedBoxes.length > 0) {
+            hasSkills = true;
+            // Dodajemy nagłówek kategorii
+                html += `<blockquote><h3>${titleRaw}</h3></blockquote>`;
+
+                // Kontener na ikony (Grid/Flex)
+                html += `<div id="icons-content">`;
+
+                checkedBoxes.forEach(cb => {
+                    // Budujemy URL ikony
+                    const iconName = cb.value;
+                    let variant = "original";
+                    if(iconName == "django") {
+                        variant = "plain";
+                    }
+
+                    const imgSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconName}/${iconName}-${variant}.svg`;
+
+                    html += `<img src="${imgSrc}" alt="${iconName}">`;
+                });
+                html += `</div>`;
+            }
+    });
+    html += `</div>`;
 
     // 5. Socials
     const linkedin = document.getElementById('linkedin').value;
@@ -145,10 +176,13 @@ function updatePreview() {
     const website = document.getElementById('website').value;
 
     if(linkedin || youtube || website) {
-        html += `<h3 style="text-align:center; margin-top:20px;">🔗 Połącz się ze mną</h3><div style="text-align:center;">`;
-        if(linkedin) html += `<a href="${linkedin}"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" style="margin:5px;"></a>`;
-        if(youtube) html += `<a href="${youtube}"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" style="margin:5px;"></a>`;
-        if(website) html += `<a href="${website}"><img src="https://img.shields.io/badge/Website-333333?style=for-the-badge&logo=About.me&logoColor=white" style="margin:5px;"></a>`;
+        html += `<div id="contact-section">`
+            html += `<h3 id="headers-urls">🔗 Połącz się ze mną</h3>`;
+                html += `<div id="content-urls">`;
+                if(linkedin) html += `<a href="${linkedin}" target="_blank" style="margin: 0 5px;"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>`;
+                if(youtube) html += `<a href="${youtube}" target="_blank" style="margin: 0 5px;"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white"></a>`;
+                if(website) html += `<a href="${website}" target="_blank" style="margin: 0 5px;"><img src="https://img.shields.io/badge/Website-333333?style=for-the-badge&logo=About.me&logoColor=white"></a>`;
+                html += `</div>`;
         html += `</div>`;
     }
 
@@ -162,39 +196,98 @@ function generujKod() {
         return;
     }
 
-    // Wywołujemy aktualizację, żeby mieć pewność, że HTML jest świeży
-    updatePreview();
-
-    const previewDiv = document.getElementById('readme-preview');
-    const images = previewDiv.querySelectorAll('img');
-    const links = previewDiv.querySelectorAll('a'); // Pobieramy linki do socials
+    // Aktualizujemy zmienne z formularza
+    const name = document.getElementById('headerName').value || 'Imie';
+    const subtitle = document.getElementById('subtitle').value || 'Dev';
+    const typingText = document.getElementById('typingText').value;
+    const theme = document.getElementById('themeSelect').value;
+    const showStats = document.getElementById('showStats').checked;
+    const showTrophies = document.getElementById('showTrophies').checked;
+    const showStreak = document.getElementById('showStreak').checked;
 
     let markdown = ``;
 
-    // Konwersja obrazków na Markdown
-    images.forEach(img => {
-        // Pomijamy obrazki wewnątrz linków (one są obsłużone niżej)
-        if(img.parentElement.tagName === 'A') return;
+    // 1. Header
+    markdown += `<div align="center">\n`;
+    markdown += `  <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=${encodeURIComponent(name)}&desc=${encodeURIComponent(subtitle)}&fontColor=fff" width="100%" />\n`;
+    markdown += `</div>\n\n`;
 
-        markdown += `<p align="center"><img src="${img.src}" alt="img" width="${img.style.width || ''}" /></p>\n\n`;
+    // 2. Typing
+    if(typingText) {
+        markdown += `<div align="center">\n`;
+        markdown += `  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=4000&color=00FF41&center=true&vCenter=true&width=600&lines=${encodeURIComponent(typingText)}" />\n`;
+        markdown += `</div>\n\n`;
+    }
+
+    // 3. Stats
+    markdown += `### 📊 GitHub Stats\n\n`;
+    markdown += `<div align="center">\n`;
+
+    if (showTrophies) {
+        markdown += `  <img src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4" /> <br/>\n`;
+    }
+
+    if (showStats) {
+        // Ważne: Flexbox w Markdown nie działa, używamy <p> lub tabeli, albo po prostu obrazków obok siebie
+        // GitHub domyślnie układa obrazki obok siebie jeśli nie ma nowej linii
+        markdown += `  <p>\n`;
+        markdown += `    <img src="${window.location.origin}/api?username=${username}&theme=${theme}" height="180" />\n`;
+        if (showStreak) {
+            markdown += `    <img src="https://streak-stats.demolab.com/?user=${username}&theme=${theme}&hide_border=true" height="180" />\n`;
+        }
+        markdown += `  </p>\n`;
+    }
+    markdown += `</div>\n\n`;
+
+    // 4. Skills (Iteracja po kategoriach)
+    const categories = document.querySelectorAll('.skills-category');
+    let hasAnySkill = false;
+
+    categories.forEach(category => {
+        const titleRaw = category.querySelector('h4').childNodes[0].textContent.trim();
+        const checkedBoxes = category.querySelectorAll('input:checked');
+
+        if (checkedBoxes.length > 0) {
+            hasAnySkill = true;
+            markdown += `> ### ${titleRaw}\n`;
+            // Używamy paragrafu align="left" aby ikony były obok siebie
+            markdown += `<p align="left">\n`;
+
+            checkedBoxes.forEach(cb => {
+                const iconName = cb.value;
+                const iconClass = cb.nextElementSibling.className;
+                let variant = 'original';
+                if (iconClass.includes('plain')) variant = 'plain';
+
+                const imgSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconName}/${iconName}-${variant}.svg`;
+
+                // Dodajemy sztywne height="40" i odstęp
+                markdown += `  <img src="${imgSrc}" alt="${iconName}" height="40" style="margin: 0 10px 10px 0;" />\n`;
+            });
+
+            markdown += `</p>\n\n`;
+        }
     });
 
-    // Konwersja Socials (Linki z obrazkami)
-    if(links.length > 0) {
-        markdown += `\n<p align="center">`;
-        links.forEach(link => {
-            const img = link.querySelector('img');
-            markdown += ` <a href="${link.href}" target="_blank"><img src="${img.src}" alt="social" /></a> `;
-        });
+    // 5. Socials
+    const linkedin = document.getElementById('linkedin').value;
+    const youtube = document.getElementById('youtube').value;
+    const website = document.getElementById('website').value;
+
+    if(linkedin || youtube || website) {
+        markdown += `### 🔗 Connect with Me\n`;
+        markdown += `<p align="center">\n`;
+        if(linkedin) markdown += `  <a href="${linkedin}" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>\n`;
+        if(youtube) markdown += `  <a href="${youtube}" target="_blank"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" /></a>\n`;
+        if(website) markdown += `  <a href="${website}" target="_blank"><img src="https://img.shields.io/badge/Website-333333?style=for-the-badge&logo=About.me&logoColor=white" /></a>\n`;
         markdown += `</p>\n`;
     }
 
+    // Wyświetlenie kodu
     document.querySelector('.code-output').style.display = 'block';
     document.getElementById('finalCode').value = markdown;
 
     showNotification("Kod wygenerowany pomyślnie!", "success");
-
-    // Scroll do wyniku
     document.querySelector('.code-output').scrollIntoView({ behavior: 'smooth' });
 }
 

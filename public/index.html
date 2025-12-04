@@ -27,7 +27,7 @@
                     </div>
                     <div class="input-group">
                         <label for="username">Nazwa użytkownika Github:</label>
-                        <input type="text" id="username" placeholder="MaxPowerPL" autocomplete="username">
+                        <input type="text" id="username" placeholder="MaxPowerPL" autocomplete="username" onchange="updatePreview()">
                     </div>
                     <div class="input-group">
                         <label for="subtitle">Opis (Podtytuł):</label>
@@ -198,7 +198,7 @@
             <div class="sticky-wrapper">
                 <h3>👁️ Podgląd na żywo</h3>
                 <div id="readme-preview" class="markdown-body">
-                    <p style="text-align: center; color: #666; margin-top: 50px;">Wypełnij formularz, aby zobaczyć podgląd...</p>
+                    <p>Wypełnij formularz, aby zobaczyć podgląd...</p>
                 </div>
 
                 <div class="code-output" style="display: none;">
