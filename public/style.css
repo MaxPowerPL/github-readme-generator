@@ -387,11 +387,12 @@ input[type="text"], select {
 }
 
 #readme-preview #stats-section img {
-    height: 180px;
+    height: 140px;
 }
 
 #readme-preview #stats-section #stats {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 
