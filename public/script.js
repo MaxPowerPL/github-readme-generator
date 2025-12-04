@@ -90,7 +90,7 @@ function updatePreview() {
     const website = document.getElementById('website').value;
 
     if(linkedin || youtube || website) {
-        html += `<h3 style="text-align:center; margin-top:20px;">🔗 Connect with Me</h3><div style="text-align:center;">`;
+        html += `<h3 style="text-align:center; margin-top:20px;">🔗 Połącz się ze mną</h3><div style="text-align:center;">`;
         if(linkedin) html += `<a href="${linkedin}"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" style="margin:5px;"></a>`;
         if(youtube) html += `<a href="${youtube}"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" style="margin:5px;"></a>`;
         if(website) html += `<a href="${website}"><img src="https://img.shields.io/badge/Website-333333?style=for-the-badge&logo=About.me&logoColor=white" style="margin:5px;"></a>`;
