@@ -246,16 +246,41 @@ function toggleCategory(btn) {
 
 // Funkcja aktualizująca podgląd na żywo
 function updatePreview() {
+    const username = document.getElementById('username').value.trim();
+
+    // Pobieramy elementy checkboxów (nie tylko wartości, ale całe elementy, żeby móc je odznaczyć)
+    const statsCheckbox = document.getElementById('showStats');
+    const trophiesCheckbox = document.getElementById('showTrophies');
+    const streakCheckbox = document.getElementById('showStreak');
+    const topLangCheckbox = document.getElementById('showTopLanguage');
+
+    // --- WALIDACJA ---
+    // Sprawdzamy, czy użytkownik próbuje włączyć statystyki bez podania nicku
+    // Sprawdzamy: (Czy checkbox jest zaznaczony) I (Czy pole nicku jest puste)
+    if (!username && (statsCheckbox.checked || trophiesCheckbox.checked || streakCheckbox.checked || topLangCheckbox.checked)) {
+
+        // Wyświetlamy błąd
+        showNotification("Wpisz najpierw swój nick GitHub, aby zobaczyć statystyki!", "error");
+
+        // Cofamy zaznaczenie wszystkich checkboxów statystyk
+        statsCheckbox.checked = false;
+        trophiesCheckbox.checked = false;
+        streakCheckbox.checked = false;
+        topLangCheckbox.checked = false;
+
+        // Przerywamy funkcję (nie generujemy podglądu dla pustych danych)
+        return;
+    }
+
     const name = document.getElementById('headerName').value || 'Twoje Imię';
     const subtitle = document.getElementById('subtitle').value || 'Deweloper';
-    const username = document.getElementById('username').value || '';
     const typingText = document.getElementById('typingText').value || 'Witaj świecie';
     const theme = document.getElementById('themeSelect').value;
 
-    const showStats = document.getElementById('showStats').checked;
-    const showTrophies = document.getElementById('showTrophies').checked;
-    const showStreak = document.getElementById('showStreak').checked;
-    const showTopLanguage = document.getElementById('showTopLanguage').checked;
+    const showStats = statsCheckbox.checked;
+    const showTrophies = trophiesCheckbox.checked;
+    const showStreak = streakCheckbox.checked;
+    const showTopLanguage = topLangCheckbox.checked;
 
     const previewDiv = document.getElementById('readme-preview');
 
@@ -270,25 +295,27 @@ function updatePreview() {
                 <img src="${typingUrl}">
             </div>`;
 
-    // 3. Stats Section
-    html += `<div id="stats-section">`;
-    if (showTrophies) {
-        html += `<img id="trophy"src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4"> <br>`;
-    }
+    if(username && (showStats || showTrophies || showStreak || showTopLanguage)) {
+        // 3. Stats Section
+        html += `<div id="stats-section">`;
+        if (showTrophies) {
+            html += `<img id="trophy"src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4"> <br>`;
+        }
 
-    if (showStats) {
-        const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}`;
-        html += `<img src="${myApiUrl}">`;
+        if (showStats) {
+            const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}`;
+            html += `<img src="${myApiUrl}">`;
+        }
+        if (showStreak) {
+            const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
+            html += `<img src="${myStreakUrl}">`;
+        }
+        if (showTopLanguage) {
+            const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
+            html += `<img src="${myTopLanguageUrl}">`
+        }
+        html += `</div>`;
     }
-    if (showStreak) {
-        const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
-        html += `<img src="${myStreakUrl}">`;
-    }
-    if (showTopLanguage) {
-        const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
-        html += `<img src="${myTopLanguageUrl}">`
-    }
-    html += `</div>`;
 
     // 4. Skills Section (Z Podziałem na kategorie)
     const categories = document.querySelectorAll('.skills-category');
