@@ -128,25 +128,30 @@ input[type="text"], select {
 }
 
 /* Styl dla zablokowanych (disabled) opcji */
-.checkbox-group #checkbox-row input[type="checkbox"]:disabled + label {
-    color: #484f58; /* Ciemnoszary, nieaktywny kolor */
+/* 1. Przekreślenie tekstu samej etykiety */
+.checkbox-group #checkbox-row input:disabled + label {
+    color: #484f58;
     cursor: not-allowed;
-    text-decoration: line-through;
+    text-decoration: line-through; /* Przekreśla tylko tekst labela */
 }
 
-.checkbox-group #checkbox-row input[type="checkbox"]:disabled {
+/* 2. Styl samego checkboxa */
+.checkbox-group #checkbox-row input:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
     background-color: #21262d;
+    border-color: #30363d;
+    opacity: 0.5;
 }
 
-/* Opcjonalnie: tooltip lub dopisek błędu */
+/* 3. Styl komunikatu o błędzie - OSOBNY ELEMENT */
 .api-error-note {
     font-size: 0.75rem;
-    color: #da3633; /* Czerwony kolor błędu */
-    margin-left: 5px;
-    font-weight: normal;
-    text-decoration: none !important;
+    color: #da3633; /* Czerwony */
+    margin-left: 8px;
+    font-weight: bold;
+    text-decoration: none; /* Brak przekreślenia */
+    cursor: default;
+    opacity: 1; /* Pełna widoczność mimo disabled inputa obok */
 }
 
 /* --- Skills Section - Nowoczesny Wygląd --- */

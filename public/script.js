@@ -1,6 +1,6 @@
 const API_ENDPOINTS = {
-    'showHeader': 'https://capsule-render.vercel.app',
-    'showTyping': 'https://readme-typing-svg.demolab.com',
+    'showHeader': 'https://capsule-render.vercel.app/api?type=wave&text=test',
+    'showTyping': 'https://readme-typing-svg.demolab.com?lines=test',
     'showTrophies': 'https://github-profile-trophy.vercel.app/?username=testuser&theme=default',
     'showStreak': 'https://streak-stats.demolab.com/?user=testuser&theme=default'
 };
@@ -23,8 +23,8 @@ async function checkExternalAPIs() {
 
         if (!checkbox) continue;
 
-        // Znajdujemy label. W Twoim HTML jest on zaraz po checkboxie.
-        const label = checkbox.nextElementSibling;
+        // Pobieramy rodzica (div#checkbox-row), żeby wstawić błąd OBOK labela, a nie W NIM
+        const parentDiv = checkbox.parentElement;
 
         try {
             await checkImageLoad(url);
@@ -36,20 +36,17 @@ async function checkExternalAPIs() {
             checkbox.checked = false;
             checkbox.disabled = true;
 
-            // Dodajemy informację o błędzie (tylko raz)
-            if (label && !label.querySelector('.api-error-note')) {
+            // Dodajemy informację o błędzie jako OSOBNY element w kontenerze
+            if (parentDiv && !parentDiv.querySelector('.api-error-note')) {
                 const errorSpan = document.createElement('span');
                 errorSpan.className = 'api-error-note';
-                errorSpan.textContent = " (Przerwa techniczna API)";
-                // Styl inline dla pewności, że zadziała nawet bez CSS
-                errorSpan.style.color = '#da3633';
-                errorSpan.style.fontSize = '0.75rem';
-                errorSpan.style.marginLeft = '5px';
+                errorSpan.textContent = "(Przerwa techniczna API)";
 
-                label.appendChild(errorSpan);
+                // Wstawiamy na koniec diva (czyli za labelel)
+                parentDiv.appendChild(errorSpan);
             }
 
-            // Aktualizujemy UI żeby zniknął z podglądu
+            // Aktualizujemy UI
             updateUI();
         }
     }
