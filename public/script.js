@@ -1,6 +1,7 @@
 const API_ENDPOINTS = {
     'showHeader': 'https://capsule-render.vercel.app/api?type=wave&text=test',
-    'showTyping': 'https://readme-typing-svg.demolab.com?lines=test',
+    // 'showTyping': 'https://readme-typing-svg.demolab.com?lines=test',
+    'showTyping': '/api/typing?lines=test',
     'showTrophies': 'https://github-profile-trophy.vercel.app/?username=testuser&theme=default',
     // 'showStreak': 'https://streak-stats.demolab.com/?user=MaxPowerPL&theme=default'
 };
@@ -263,8 +264,9 @@ function updatePreview() {
     html += `<img id="header" src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&customColorList=6,11,20,29&text=${encodeURIComponent(name)}&fontSize=48&fontColor=fff&animation=twinkling&fontAlignY=35&desc=${encodeURIComponent(subtitle)}&descSize=18&descAlignY=55&textBg=false" />`;
 
     // 2. Typing SVG
+    const typingUrl = `${window.location.origin}/api/typing?lines=${encodeURIComponent(typingText)}&color=00FF41`;
     html += `<div id="typing-section">
-                <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=4000&color=00FF41&center=true&vCenter=true&width=600&lines=${encodeURIComponent(typingText)}">
+                <img src="${typingUrl}">
             </div>`;
 
     // 3. Stats Section
@@ -280,7 +282,8 @@ function updatePreview() {
         html += `<img src="${myApiUrl}">`;
 
         if (showStreak) {
-            html += `<img src="https://streak-stats.demolab.com/?user=${username}&theme=${theme}&hide_border=true">`;
+            const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
+            html += `<img src="${myStreakUrl}">`;
         }
         html += `</div>`;
     }
@@ -365,8 +368,9 @@ function generujKod() {
 
     // 2. Typing
     if(typingText) {
+        const myTypingUrl = `${window.location.origin}/api/typing?lines=${encodeURIComponent(typingText)}&color=00FF41`;
         markdown += `<div align="center">\n`;
-        markdown += `  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=4000&color=00FF41&center=true&vCenter=true&width=600&lines=${encodeURIComponent(typingText)}" />\n`;
+        markdown += `  <img src="${myTypingUrl}" />\n`;
         markdown += `</div>\n\n`;
     }
 
