@@ -278,20 +278,15 @@ function updatePreview() {
 
     if (showStats) {
         const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}`;
-        // Używamy flexboxa dla statystyk, żeby były obok siebie jeśli jest miejsce
-        html += `<div id="stats">`;
         html += `<img src="${myApiUrl}">`;
-
-        if (showStreak) {
-            const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
-            html += `<img src="${myStreakUrl}">`;
-        }
-
-        if (showTopLanguage) {
-            const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
-            html += `<img src="${myTopLanguageUrl}">`
-        }
-        html += `</div>`;
+    }
+    if (showStreak) {
+        const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
+        html += `<img src="${myStreakUrl}">`;
+    }
+    if (showTopLanguage) {
+        const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
+        html += `<img src="${myTopLanguageUrl}">`
     }
     html += `</div>`;
 
