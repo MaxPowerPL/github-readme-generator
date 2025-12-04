@@ -300,8 +300,8 @@ function updatePreview() {
     let hasSkills = false;
 
     html += `<div id="skills">`;
-    html += `<h1 id="skills-header>🛠️Umiejętności i Narzędzia</h1>`;
-    
+    html += `<h1 id="skills-header">🛠️Umiejętności i Narzędzia</h1>`;
+
     categories.forEach(category => {
         // Pobieramy nazwę kategorii z nagłówka h4 (usuwamy tekst przycisku)
         const titleRaw = category.querySelector('h4').childNodes[0].textContent.trim();
