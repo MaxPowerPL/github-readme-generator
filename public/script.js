@@ -299,9 +299,6 @@ function updatePreview() {
     const categories = document.querySelectorAll('.skills-category');
     let hasSkills = false;
 
-    html += `<div id="skills">`;
-    html += `<h1 id="skills-header">🛠️Umiejętności i Narzędzia</h1>`;
-
     categories.forEach(category => {
         // Pobieramy nazwę kategorii z nagłówka h4 (usuwamy tekst przycisku)
         const titleRaw = category.querySelector('h4').childNodes[0].textContent.trim();
@@ -310,6 +307,8 @@ function updatePreview() {
         if (checkedBoxes.length > 0) {
             hasSkills = true;
             // Dodajemy nagłówek kategorii
+                html += `<div id="skills">`;
+                html += `<h1 id="skills-header">🛠️Umiejętności i Narzędzia</h1>`;
                 html += `<blockquote><h3>${titleRaw}</h3></blockquote>`;
 
                 // Kontener na ikony (Grid/Flex)
