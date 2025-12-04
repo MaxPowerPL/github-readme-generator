@@ -397,6 +397,11 @@ input[type="text"], select {
     justify-content: space-around;
 }
 
+#readme-preview #skills #skills-header {
+    text-align: center;
+    border-bottom: 2px solid #fff2;
+}
+
 #readme-preview #skills blockquote:first-child {
     margin: 0 0 16px;
 }
