@@ -297,7 +297,8 @@ function updatePreview() {
 
     // 4. Skills Section (Z Podziałem na kategorie)
     const categories = document.querySelectorAll('.skills-category');
-    let hasSkills = false;
+
+    let skillsContent = '';
 
     categories.forEach(category => {
         // Pobieramy nazwę kategorii z nagłówka h4 (usuwamy tekst przycisku)
@@ -305,31 +306,34 @@ function updatePreview() {
         const checkedBoxes = category.querySelectorAll('input:checked');
 
         if (checkedBoxes.length > 0) {
-            hasSkills = true;
             // Dodajemy nagłówek kategorii
-                html += `<div id="skills">`;
-                html += `<h1 id="skills-header">🛠️Umiejętności i Narzędzia</h1>`;
-                html += `<blockquote><h3>${titleRaw}</h3></blockquote>`;
+            skillsContent += `<blockquote><h3>${titleRaw}</h3></blockquote>`;
 
-                // Kontener na ikony (Grid/Flex)
-                html += `<div id="icons-content">`;
+            // Kontener na ikony (Grid/Flex)
+            skillsContent += `<div id="icons-content">`;
 
-                checkedBoxes.forEach(cb => {
-                    // Budujemy URL ikony
-                    const iconName = cb.value;
-                    let variant = "original";
-                    if(iconName == "django") {
-                        variant = "plain";
-                    }
+            checkedBoxes.forEach(cb => {
+                // Budujemy URL ikony
+                const iconName = cb.value;
+                let variant = "original";
+                if(iconName == "django") {
+                    variant = "plain";
+                }
 
-                    const imgSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconName}/${iconName}-${variant}.svg`;
+                const imgSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconName}/${iconName}-${variant}.svg`;
 
-                    html += `<img src="${imgSrc}" alt="${iconName}">`;
-                });
-                html += `</div>`;
-            }
+                skillsContent += `<img src="${imgSrc}" alt="${iconName}">`;
+            });
+            skillsContent += `</div>`;
+        }
     });
-    html += `</div>`;
+
+    if (skillsContent !== '') {
+        html += `<div id="skills">`;
+        html += `<h1 id="skills-header">🛠️ Umiejętności i Narzędzia</h1>`; // Nagłówek tylko raz
+        html += skillsContent;
+        html += `</div>`;
+    }
 
     // 5. Socials
     const linkedin = document.getElementById('linkedin').value;
