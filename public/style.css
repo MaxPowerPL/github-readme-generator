@@ -313,21 +313,9 @@ input[type="text"], select {
     width: 100%;
 }
 
-#readme-preview #preview-element {
-    margin: 20px 0;
-}
-
-#readme-preview #preview-element #trophy {
+#readme-preview #stats-section #trophy {
     display: inline-block;
     margin: 5px;
-}
-
-#readme-preview #preview-element #stats {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
 }
 
 #readme-preview #typing-section {
@@ -336,8 +324,13 @@ input[type="text"], select {
     justify-content: center;
 }
 
-#readme-preview #stats-section #stats img {
+#readme-preview #stats-section img {
     height: 180px;
+}
+
+#readme-preview #stats-section #stats {
+    display: flex;
+    justify-content: space-around;
 }
 
 #readme-preview #skills blockquote:first-child {
