@@ -388,18 +388,22 @@ function generujKod() {
     const subtitle = document.getElementById('subtitle').value || 'Dev';
     const typingText = document.getElementById('typingText').value;
     const theme = document.getElementById('themeSelect').value;
+
+    // Pobieramy status checkboxów
     const showStats = document.getElementById('showStats').checked;
     const showTrophies = document.getElementById('showTrophies').checked;
     const showStreak = document.getElementById('showStreak').checked;
+    const showTopLanguage = document.getElementById('showTopLanguage').checked;
 
     let markdown = ``;
 
-    // 1. Header
+    // --- 1. HEADER ---
+    // Używamy <div align="center"> dla pewnego wyśrodkowania na GitHubie
     markdown += `<div align="center">\n`;
-    markdown += `  <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=${encodeURIComponent(name)}&desc=${encodeURIComponent(subtitle)}&fontColor=fff" width="100%" />\n`;
+    markdown += `  <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&customColorList=6,11,20,29&text=${encodeURIComponent(name)}&fontSize=48&fontColor=fff&animation=twinkling&fontAlignY=35&desc=${encodeURIComponent(subtitle)}&descSize=18&descAlignY=55&textBg=false" width="100%" />\n`;
     markdown += `</div>\n\n`;
 
-    // 2. Typing
+    // --- 2. TYPING EFFECT ---
     if(typingText) {
         const myTypingUrl = `${window.location.origin}/api/typing?lines=${encodeURIComponent(typingText)}&color=00FF41`;
         markdown += `<div align="center">\n`;
@@ -407,71 +411,95 @@ function generujKod() {
         markdown += `</div>\n\n`;
     }
 
-    // 3. Stats
-    markdown += `### 📊 GitHub Stats\n\n`;
-    markdown += `<div align="center">\n`;
+    // --- 3. STATS SECTION ---
+    if (showStats || showTrophies || showStreak || showTopLanguage) {
+        markdown += `### 📊 GitHub Stats\n\n`;
+        markdown += `<div align="center">\n`;
 
-    if (showTrophies) {
-        markdown += `  <img src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4" /> <br/>\n`;
-    }
-
-    if (showStats) {
-        // Ważne: Flexbox w Markdown nie działa, używamy <p> lub tabeli, albo po prostu obrazków obok siebie
-        // GitHub domyślnie układa obrazki obok siebie jeśli nie ma nowej linii
-        markdown += `  <p>\n`;
-        markdown += `    <img src="${window.location.origin}/api?username=${username}&theme=${theme}" height="180" />\n`;
-        if (showStreak) {
-            markdown += `    <img src="https://streak-stats.demolab.com/?user=${username}&theme=${theme}&hide_border=true" height="180" />\n`;
+        // Trofea (zawsze w nowej linii na górze statystyk)
+        if (showTrophies) {
+            markdown += `  <img src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4" /> <br/>\n`;
         }
-        markdown += `  </p>\n`;
-    }
-    markdown += `</div>\n\n`;
 
-    // 4. Skills (Iteracja po kategoriach)
+        // Karty statystyk (Główna, Streak, Języki) - chcemy je obok siebie
+        // Używamy <p> i spacji między obrazkami, GitHub sam je zawinie jeśli się nie zmieszczą
+        markdown += `  <p>\n`;
+
+        if (showStats) {
+            markdown += `    <img src="${window.location.origin}/api?username=${username}&theme=${theme}" height="180" />\n`;
+        }
+        if (showStreak) {
+            // Dodajemy spację encją &nbsp; lub zwykłą spacją dla odstępu
+            markdown += `    <img src="${window.location.origin}/api/streak?username=${username}&theme=${theme}" height="180" />\n`;
+        }
+        if (showTopLanguage) {
+            markdown += `    <img src="${window.location.origin}/api/top_language?username=${username}&theme=${theme}" height="180" />\n`;
+        }
+
+        markdown += `  </p>\n`;
+        markdown += `</div>\n\n`;
+    }
+
+    // --- 4. SKILLS SECTION ---
+    // Musimy iterować po kategoriach tak samo jak w updatePreview
     const categories = document.querySelectorAll('.skills-category');
     let hasAnySkill = false;
+    let skillsMarkdown = '';
 
     categories.forEach(category => {
+        // Pobieramy nazwę kategorii (np. "FRONTEND")
         const titleRaw = category.querySelector('h4').childNodes[0].textContent.trim();
         const checkedBoxes = category.querySelectorAll('input:checked');
 
         if (checkedBoxes.length > 0) {
             hasAnySkill = true;
-            markdown += `> ### ${titleRaw}\n`;
-            // Używamy paragrafu align="left" aby ikony były obok siebie
-            markdown += `<p align="left">\n`;
+            // Dodajemy nagłówek kategorii jako cytat (ładnie wygląda) lub H3
+            skillsMarkdown += `### ${titleRaw}\n`;
+
+            // Kontener na ikony - wyrównanie do lewej
+            skillsMarkdown += `<p align="left">\n`;
 
             checkedBoxes.forEach(cb => {
                 const iconName = cb.value;
-                const iconClass = cb.nextElementSibling.className;
+                // Logika wariantów (plain vs original)
                 let variant = 'original';
+                const iconClass = cb.nextElementSibling.className;
                 if (iconClass.includes('plain')) variant = 'plain';
+                // Wyjątek dla Django (zgodnie z Twoim kodem)
+                if(iconName == "django") variant = "plain";
 
                 const imgSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconName}/${iconName}-${variant}.svg`;
 
-                // Dodajemy sztywne height="40" i odstęp
-                markdown += `  <img src="${imgSrc}" alt="${iconName}" height="40" style="margin: 0 10px 10px 0;" />\n`;
+                // WAŻNE: Dodajemy height="40" i style margin, żeby się nie sklejały
+                skillsMarkdown += `  <img src="${imgSrc}" alt="${iconName}" width="40" height="40" style="margin-right: 10px;" />\n`;
             });
 
-            markdown += `</p>\n\n`;
+            skillsMarkdown += `</p>\n\n`;
         }
     });
 
-    // 5. Socials
+    if (hasAnySkill) {
+        markdown += `## 🛠️ Umiejętności i Narzędzia\n\n`;
+        markdown += skillsMarkdown;
+    }
+
+    // --- 5. SOCIALS ---
     const linkedin = document.getElementById('linkedin').value;
     const youtube = document.getElementById('youtube').value;
     const website = document.getElementById('website').value;
 
     if(linkedin || youtube || website) {
         markdown += `### 🔗 Connect with Me\n`;
-        markdown += `<p align="center">\n`;
+        markdown += `<p align="left">\n`; // Wyrównanie do lewej dla spójności
+
         if(linkedin) markdown += `  <a href="${linkedin}" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>\n`;
         if(youtube) markdown += `  <a href="${youtube}" target="_blank"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" /></a>\n`;
         if(website) markdown += `  <a href="${website}" target="_blank"><img src="https://img.shields.io/badge/Website-333333?style=for-the-badge&logo=About.me&logoColor=white" /></a>\n`;
+
         markdown += `</p>\n`;
     }
 
-    // Wyświetlenie kodu
+    // Wyświetlenie wyniku
     document.querySelector('.code-output').style.display = 'block';
     document.getElementById('finalCode').value = markdown;
 
