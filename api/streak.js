@@ -90,18 +90,18 @@ export default async function handler(req, res) {
     const t = themes[theme] || themes['default'];
 
     const svg = `
-      <svg width="300" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+      <svg width="350" height="180" viewBox="0 0 350 180" xmlns="http://www.w3.org/2000/svg">
         <rect width="350" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
-        <text x="200" y="35" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.text}" font-weight="bold" text-anchor="middle">
+        <text x="175" y="35" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.text}" font-weight="bold" text-anchor="middle">
           🔥 Current Streak
         </text>
 
-        <text x="200" y="90" font-family="Segoe UI, sans-serif" font-size="40" fill="${t.text}" font-weight="bold" text-anchor="middle">
+        <text x="175" y="105" font-family="Segoe UI, sans-serif" font-size="50" fill="${t.text}" font-weight="bold" text-anchor="middle">
           ${currentStreak} days
         </text>
 
-        <text x="200" y="125" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
+        <text x="175" y="140" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
           ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </text>
       </svg>
