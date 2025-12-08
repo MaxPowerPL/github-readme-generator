@@ -298,22 +298,26 @@ function updatePreview() {
     if(username && (showStats || showTrophies || showStreak || showTopLanguage)) {
         // 3. Stats Section
         html += `<div id="stats-section">`;
-        if (showTrophies) {
-            html += `<img id="trophy"src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4"> <br>`;
-        }
+            html += `<div id="content-section">`;
+            if (showTrophies) {
+                html += `<img id="trophy"src="https://github-profile-trophy.vercel.app/?username=${username}&theme=${theme}&no-frame=true&margin-w=4"> <br>`;
+            }
+            html += `</div>`;
 
-        if (showStats) {
-            const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}`;
-            html += `<img src="${myApiUrl}">`;
-        }
-        if (showStreak) {
-            const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
-            html += `<img src="${myStreakUrl}">`;
-        }
-        if (showTopLanguage) {
-            const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
-            html += `<img src="${myTopLanguageUrl}">`
-        }
+            html += `<div id="content-section">`;
+            if (showStats) {
+                const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}`;
+                html += `<img src="${myApiUrl}">`;
+            }
+            if (showStreak) {
+                const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
+                html += `<img src="${myStreakUrl}">`;
+            }
+            if (showTopLanguage) {
+                const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
+                html += `<img src="${myTopLanguageUrl}">`
+            }
+            html += `</div>`;
         html += `</div>`;
     }
 

@@ -384,6 +384,17 @@ input[type="text"], select {
 
 #readme-preview #stats-section {
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#readme-preview #stats-section #content-section:first-child {
+    justify-content: center;
+}
+
+#readme-preview #stats-section #content-section {
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
