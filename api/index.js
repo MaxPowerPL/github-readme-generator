@@ -56,12 +56,12 @@ export default async function handler(req, res) {
         <line x1="20" y1="70" x2="380" y2="70" stroke="${t.stroke}" stroke-width="1" opacity="0.5"/>
 
         <g transform="translate(20, 110)">
-            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.secondary}">📦 ${txt.repos}</text>
+            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.secondary}">${txt.repos}</text>
             <text x="150" font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.text}" font-weight="bold">${repos}</text>
         </g>
 
         <g transform="translate(20, 150)">
-            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.secondary}">👥 ${txt.followers}</text>
+            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.secondary}">${txt.followers}</text>
             <text x="150" font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.text}" font-weight="bold">${followers}</text>
         </g>
 
