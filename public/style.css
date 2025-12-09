@@ -616,9 +616,13 @@ textarea {
     box-shadow: 0 5px 15px rgba(88, 166, 255, 0.1);
 }
 
-.lang-card .flag {
-    font-size: 3rem;
-    color: #0ff;
+.lang-card .flag-img {
+    width: 48px;       /* Szerokość flagi */
+    height: auto;      /* Wysokość automatyczna */
+    display: block;    /* Żeby ładnie się układało */
+    margin-bottom: 10px; /* Odstęp od napisu */
+    border-radius: 4px; /* Lekkie zaokrąglenie rogów flagi */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Mały cień dla lepszego wyglądu */
 }
 
 .lang-card h3 {
