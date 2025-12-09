@@ -143,7 +143,7 @@ export default async function handler(req, res) {
           }
         </style>
 
-        <rect x="1" y="1" width="495" height="200" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
+        <rect width="495" height="200" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
         <text x="25" y="35" class="header">
           ${name} - ${txt.title}

@@ -140,7 +140,7 @@ export default async function handler(req, res) {
           }).join('')}
         </g>
 
-        <text x="380" y="170" font-family="Segoe UI, Helvetica, Arial" font-size="11" fill="${t.text}" opacity="0.6" text-anchor="end">
+        <text x="380" y="190" font-family="Segoe UI, Helvetica, Arial" font-size="11" fill="${t.text}" opacity="0.6" text-anchor="end">
           ${txt.footer}
         </text>
       </svg>

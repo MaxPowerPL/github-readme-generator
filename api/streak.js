@@ -123,7 +123,7 @@ const svg = `
           ${new Date().toLocaleDateString(lang === 'pl' ? 'pl-PL' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </text>
 
-        <text x="330" y="170" font-family="Segoe UI, Helvetica, Arial" font-size="11" fill="${t.text}" opacity="0.6" text-anchor="end">
+        <text x="330" y="190" font-family="Segoe UI, Helvetica, Arial" font-size="11" fill="${t.text}" opacity="0.6" text-anchor="end">
           ${txt.footer}
         </text>
       </svg>
