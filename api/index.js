@@ -127,13 +127,13 @@ export default async function handler(req, res) {
 
     // --- GENEROWANIE SVG (POPRAWIONE WYMIARY I CZCIONKI) ---
     const svg = `
-      <svg width="495" height="195" viewBox="0 0 495 195" xmlns="http://www.w3.org/2000/svg">
+      <svg width="495" height="200" viewBox="0 0 495 195" xmlns="http://www.w3.org/2000/svg">
         <style>
           .header { font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
-          .stat-label { font: 400 13px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
-          .stat-value { font: 700 14px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
+          .stat-label { font: 400 15px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
+          .stat-value { font: 700 16px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
           .rank-letter { font: 800 36px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
-          .rank-label { font: 600 14px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
+          .rank-label { font: 600 15px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
           .footer { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; opacity: 0.6; }
 
           /* Animacja */
@@ -185,7 +185,7 @@ export default async function handler(req, res) {
             </g>
         </g>
 
-        <g transform="translate(410, 115)">
+        <g transform="translate(410, 100)">
             <circle
                 stroke="${t.stroke}"
                 stroke-width="5"
@@ -209,7 +209,7 @@ export default async function handler(req, res) {
             <text x="0" y="65" text-anchor="middle" class="rank-label">${txt.rank}</text>
         </g>
 
-        <text x="480" y="185" class="footer" text-anchor="end">
+        <text x="475" y="190" class="footer" text-anchor="end">
           ${txt.footer}
         </text>
       </svg>

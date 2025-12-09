@@ -115,15 +115,15 @@ const svg = `
           ${txt.title}
         </text>
 
-        <text x="175" y="90" font-family="Segoe UI, sans-serif" font-size="50" fill="${t.secondary}" font-weight="bold" text-anchor="middle">
+        <text x="175" y="100" font-family="Segoe UI, sans-serif" font-size="50" fill="${t.secondary}" font-weight="bold" text-anchor="middle">
           ${currentStreak} ${txt.days}
         </text>
 
-        <text x="175" y="125" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
+        <text x="175" y="130" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
           ${new Date().toLocaleDateString(lang === 'pl' ? 'pl-PL' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </text>
 
-        <text x="330" y="170" font-family="Segoe UI, Helvetica, Arial" font-size="10" fill="${t.text}" opacity="0.6" text-anchor="end">
+        <text x="330" y="170" font-family="Segoe UI, Helvetica, Arial" font-size="11" fill="${t.text}" opacity="0.6" text-anchor="end">
           ${txt.footer}
         </text>
       </svg>

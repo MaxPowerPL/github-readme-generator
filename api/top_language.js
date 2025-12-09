@@ -106,8 +106,8 @@ export default async function handler(req, res) {
         <style>
           /* Tytuł używa t.text (główny kolor) */
           .header { font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
-          .lang-name { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
-          .lang-percent { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; opacity: 0.8; }
+          .lang-name { font: 400 13px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
+          .lang-percent { font: 400 13px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; opacity: 0.8; }
         </style>
 
         <rect width="400" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
@@ -140,7 +140,7 @@ export default async function handler(req, res) {
           }).join('')}
         </g>
 
-        <text x="380" y="170" font-family="Segoe UI, Helvetica, Arial" font-size="10" fill="${t.text}" opacity="0.6" text-anchor="end">
+        <text x="380" y="170" font-family="Segoe UI, Helvetica, Arial" font-size="11" fill="${t.text}" opacity="0.6" text-anchor="end">
           ${txt.footer}
         </text>
       </svg>
