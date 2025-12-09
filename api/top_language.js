@@ -110,7 +110,7 @@ export default async function handler(req, res) {
           .lang-percent { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; opacity: 0.6; }
         </style>
 
-        <rect width="400" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="1" stroke-opacity="0.3"/>
+        <rect width="400" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
         <text x="25" y="35" class="header">${txt.title}</text>
 
