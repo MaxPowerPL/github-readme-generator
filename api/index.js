@@ -136,8 +136,14 @@ export default async function handler(req, res) {
           .rank-label { font: 600 15px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
 
           /* Animacja */
+          @keyframes fillRank {
+            from { stroke-dashoffset: ${rank.circumference}; } /* Start: Pusty */
+            to { stroke-dashoffset: ${rank.offset}; }         /* Koniec: Wypełniony */
+          }
+
           .progress-ring-circle {
-            transition: stroke-dashoffset 0.35s;
+            /* 1s animacji, 500ms opóźnienia, 'both' utrzymuje stan początkowy (pusty) w trakcie czekania */
+            animation: fillRank 1s ease-out 500ms both;
           }
         </style>
 
