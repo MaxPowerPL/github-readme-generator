@@ -97,30 +97,30 @@ export default async function handler(req, res) {
 
     // --- GENEROWANIE SVG ---
     const themes = {
-        default: { bg: '#1a1b27', stroke: '#00f2ff', text: '#ffffff', ring: '#00f2ff' },
-        gruvbox: { bg: '#282828', stroke: '#ebdbb2', text: '#ebdbb2', ring: '#fabd2f' },
-        dracula: { bg: '#282a36', stroke: '#bd93f9', text: '#f8f8f2', ring: '#50fa7b' },
-        light:   { bg: '#ffffff', stroke: '#0366d6', text: '#24292e', ring: '#0366d6' },
-        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', ring: '#fe428e' },
-        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', ring: '#abd200' },
-        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', ring: '#7aa2f7' }
+        default: { bg: '#1a1b27', stroke: '#00f2ff', text: '#ffffff', secondary: '#00f2ff' },
+        gruvbox: { bg: '#282828', stroke: '#ebdbb2', text: '#ebdbb2', secondary: '#fabd2f' },
+        dracula: { bg: '#282a36', stroke: '#bd93f9', text: '#f8f8f2', secondary: '#50fa7b' },
+        light:   { bg: '#ffffff', stroke: '#0366d6', text: '#24292e', secondary: '#0366d6' },
+        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', secondary: '#fe428e' },
+        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', secondary: '#abd200' },
+        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', secondary: '#7aa2f7' }
     };
     const t = themes[theme] || themes['default'];
 
-    const svg = `
-      <svg width="350" height="180" viewBox="0 0 350 180" xmlns="http://www.w3.org/2000/svg">
-        <rect width="350" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
+const svg = `
+      <svg width="400" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="150" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
-        <text x="175" y="35" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.text}" font-weight="bold" text-anchor="middle">
+        <text x="200" y="35" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.secondary}" font-weight="bold" text-anchor="middle">
           ${txt.title}
         </text>
 
-        <text x="175" y="105" font-family="Segoe UI, sans-serif" font-size="50" fill="${t.ring}" font-weight="bold" text-anchor="middle">
+        <text x="200" y="90" font-family="Segoe UI, sans-serif" font-size="56" fill="${t.text}" font-weight="bold" text-anchor="middle">
           ${currentStreak} ${txt.days}
         </text>
 
-        <text x="175" y="140" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
-          ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+        <text x="200" y="125" font-family="Segoe UI, sans-serif" font-size="12" fill="${t.text}" opacity="0.7" text-anchor="middle">
+          ${new Date().toLocaleDateString(lang === 'pl' ? 'pl-PL' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </text>
 
         <text x="330" y="170" font-family="Segoe UI, Helvetica, Arial" font-size="10" fill="${t.text}" opacity="0.6" text-anchor="end">

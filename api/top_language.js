@@ -86,13 +86,13 @@ export default async function handler(req, res) {
 
     // 4. Motywy kolorystyczne (spójne z resztą)
     const themes = {
-        default: { bg: '#1a1b27', text: '#ffffff', title: '#ffffff' },
-        gruvbox: { bg: '#282828', text: '#ebdbb2', title: '#ebdbb2' },
-        dracula: { bg: '#282a36', text: '#f8f8f2', title: '#bd93f9' },
-        light:   { bg: '#ffffff', text: '#24292e', title: '#24292e' },
-        radical: { bg: '#141321', text: '#fe428e', title: '#a9fef7' },
-        merko:   { bg: '#0a0c10', text: '#abd200', title: '#68b587' },
-        tokyonight: { bg: '#1a1b26', text: '#7aa2f7', title: '#38bdae' }
+        default: { bg: '#1a1b27', stroke: '#00f2ff', text: '#ffffff', secondary: '#00f2ff' },
+        gruvbox: { bg: '#282828', stroke: '#ebdbb2', text: '#ebdbb2', secondary: '#fabd2f' },
+        dracula: { bg: '#282a36', stroke: '#bd93f9', text: '#f8f8f2', secondary: '#50fa7b' },
+        light:   { bg: '#ffffff', stroke: '#0366d6', text: '#24292e', secondary: '#0366d6' },
+        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', secondary: '#fe428e' },
+        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', secondary: '#abd200' },
+        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', secondary: '#7aa2f7' }
     };
     const t = themes[theme] || themes['default'];
 
@@ -104,12 +104,13 @@ export default async function handler(req, res) {
     const svg = `
       <svg width="400" height="180" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
         <style>
-          .header { font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.title}; }
+          /* Tytuł używa t.text (główny kolor) */
+          .header { font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
           .lang-name { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
           .lang-percent { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; opacity: 0.6; }
         </style>
 
-        <rect width="400" height="180" rx="10" fill="${t.bg}" stroke="${t.title}" stroke-width="2"/>
+        <rect width="400" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="1" stroke-opacity="0.3"/>
 
         <text x="25" y="35" class="header">${txt.title}</text>
 
@@ -127,7 +128,6 @@ export default async function handler(req, res) {
 
         <g transform="translate(25, 85)">
           ${languages.map((lang, index) => {
-            // Układ w 2 kolumnach (0-2 w lewej, 3-5 w prawej)
             const col = index < 3 ? 0 : 170;
             const row = (index % 3) * 25;
             return `

@@ -34,13 +34,13 @@ export default async function handler(req, res) {
 
     // Definicje motywów kolorystycznych
     const themes = {
-        default: { bg: '#1a1b27', stroke: '#00f2ff', text: '#ffffff', icon: '#00f2ff' },
-        gruvbox: { bg: '#282828', stroke: '#ebdbb2', text: '#ebdbb2', icon: '#fabd2f' },
-        dracula: { bg: '#282a36', stroke: '#bd93f9', text: '#f8f8f2', icon: '#50fa7b' },
-        light:   { bg: '#ffffff', stroke: '#0366d6', text: '#24292e', icon: '#0366d6' },
-        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', icon: '#fe428e' },
-        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', icon: '#abd200' },
-        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', icon: '#7aa2f7' }
+        default: { bg: '#1a1b27', stroke: '#00f2ff', text: '#ffffff', secondary: '#00f2ff' },
+        gruvbox: { bg: '#282828', stroke: '#ebdbb2', text: '#ebdbb2', secondary: '#fabd2f' },
+        dracula: { bg: '#282a36', stroke: '#bd93f9', text: '#f8f8f2', secondary: '#50fa7b' },
+        light:   { bg: '#ffffff', stroke: '#0366d6', text: '#24292e', secondary: '#0366d6' },
+        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', secondary: '#fe428e' },
+        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', secondary: '#abd200' },
+        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', secondary: '#7aa2f7' }
     };
 
     const t = themes[theme] || themes['default'];
@@ -50,18 +50,18 @@ export default async function handler(req, res) {
         <rect width="400" height="200" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
         <text x="20" y="50" font-family="Segoe UI, Helvetica, Arial" font-size="22" fill="${t.text}" font-weight="bold">
-          ${name} - ${txt.title}
+          ${name}'s ${txt.title}
         </text>
 
         <line x1="20" y1="70" x2="380" y2="70" stroke="${t.stroke}" stroke-width="1" opacity="0.5"/>
 
         <g transform="translate(20, 110)">
-            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.icon}">${txt.repos}</text>
+            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.secondary}">📦 ${txt.repos}</text>
             <text x="150" font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.text}" font-weight="bold">${repos}</text>
         </g>
 
         <g transform="translate(20, 150)">
-            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.icon}">${txt.followers}</text>
+            <text font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.secondary}">👥 ${txt.followers}</text>
             <text x="150" font-family="Segoe UI, Helvetica, Arial" font-size="16" fill="${t.text}" font-weight="bold">${followers}</text>
         </g>
 
