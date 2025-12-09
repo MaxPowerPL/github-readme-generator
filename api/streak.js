@@ -101,9 +101,9 @@ export default async function handler(req, res) {
         gruvbox: { bg: '#282828', stroke: '#ebdbb2', text: '#ebdbb2', ring: '#fabd2f' },
         dracula: { bg: '#282a36', stroke: '#bd93f9', text: '#f8f8f2', ring: '#50fa7b' },
         light:   { bg: '#ffffff', stroke: '#0366d6', text: '#24292e', ring: '#0366d6' },
-        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', icon: '#fe428e' },
-        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', icon: '#abd200' },
-        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', icon: '#7aa2f7' }
+        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', ring: '#fe428e' },
+        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', ring: '#abd200' },
+        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', ring: '#7aa2f7' }
     };
     const t = themes[theme] || themes['default'];
 
@@ -115,7 +115,7 @@ export default async function handler(req, res) {
           ${txt.title}
         </text>
 
-        <text x="175" y="105" font-family="Segoe UI, sans-serif" font-size="50" fill="${t.text}" font-weight="bold" text-anchor="middle">
+        <text x="175" y="105" font-family="Segoe UI, sans-serif" font-size="50" fill="${t.ring}" font-weight="bold" text-anchor="middle">
           ${currentStreak} ${txt.days}
         </text>
 

@@ -86,13 +86,13 @@ export default async function handler(req, res) {
 
     // 4. Motywy kolorystyczne (spójne z resztą)
     const themes = {
-        default: { bg: '#1a1b27', text: '#ffffff', title: '#00f2ff' },
-        gruvbox: { bg: '#282828', text: '#ebdbb2', title: '#fabd2f' },
+        default: { bg: '#1a1b27', text: '#ffffff', title: '#ffffff' },
+        gruvbox: { bg: '#282828', text: '#ebdbb2', title: '#ebdbb2' },
         dracula: { bg: '#282a36', text: '#f8f8f2', title: '#bd93f9' },
-        light:   { bg: '#ffffff', text: '#24292e', title: '#0366d6' },
-        radical: { bg: '#141321', stroke: '#fe428e', text: '#a9fef7', icon: '#fe428e' },
-        merko:   { bg: '#0a0c10', stroke: '#abd200', text: '#68b587', icon: '#abd200' },
-        tokyonight: { bg: '#1a1b26', stroke: '#7aa2f7', text: '#38bdae', icon: '#7aa2f7' }
+        light:   { bg: '#ffffff', text: '#24292e', title: '#24292e' },
+        radical: { bg: '#141321', text: '#fe428e', title: '#a9fef7' },
+        merko:   { bg: '#0a0c10', text: '#abd200', title: '#68b587' },
+        tokyonight: { bg: '#1a1b26', text: '#7aa2f7', title: '#38bdae' }
     };
     const t = themes[theme] || themes['default'];
 
