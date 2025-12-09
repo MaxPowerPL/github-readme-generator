@@ -6,8 +6,10 @@ const API_ENDPOINTS = {
     // 'showStreak': 'https://streak-stats.demolab.com/?user=MaxPowerPL&theme=default'
 };
 
+// Inicjalizacja przy starcie
 window.onload = function() {
-    checkExternalAPIs(); // Sprawdź dostępność API przy starcie
+    initLanguage();
+    checkExternalAPIs();
     updateUI();
 };
 
@@ -42,7 +44,7 @@ async function checkExternalAPIs() {
             if (parentDiv && !parentDiv.querySelector('.api-error-note')) {
                 const errorSpan = document.createElement('span');
                 errorSpan.className = 'api-error-note';
-                errorSpan.textContent = "(Przerwa techniczna API)";
+                errorSpan.textContent = getTrans('apiError');
 
                 // Wstawiamy na koniec diva (czyli za labelel)
                 parentDiv.appendChild(errorSpan);
@@ -84,13 +86,13 @@ async function verifySingleApi(checkboxId, url) {
         // 1. Dodajemy komunikat błędu
         const errorSpan = document.createElement('span');
         errorSpan.className = 'api-error-note';
-        errorSpan.textContent = "(Przerwa techniczna)";
+        errorSpan.textContent = getTrans('apiError');
         parentDiv.appendChild(errorSpan);
 
         // 2. Dodajemy przycisk Odśwież (Retry)
         const retryBtn = document.createElement('button');
         retryBtn.className = 'api-retry-btn';
-        retryBtn.title = "Spróbuj ponownie";
+        retryBtn.title = getTrans('btnRetryTitle');
         retryBtn.innerHTML = '🔄'; // Ikona Unicode (możesz dać SVG)
 
         // Obsługa kliknięcia
@@ -181,9 +183,9 @@ function updateCounters() {
         const btn = category.querySelector('.select-all-btn');
         if (btn) {
             if (checkedCount === totalCount) {
-                btn.textContent = "Odznacz wszystkie";
+                btn.textContent = getTrans('btnDeselectAll');
             } else {
-                btn.textContent = "Zaznacz wszystkie";
+                btn.textContent = getTrans('btnSelectAll');
             }
         }
     });
@@ -260,7 +262,7 @@ function updatePreview() {
     if (!username && (statsCheckbox.checked || trophiesCheckbox.checked || streakCheckbox.checked || topLangCheckbox.checked)) {
 
         // Wyświetlamy błąd
-        showNotification("Wpisz najpierw swój nick GitHub, aby zobaczyć statystyki!", "error");
+        showNotification(getTrans('msgEnterNickStats'), "error");
 
         // Cofamy zaznaczenie wszystkich checkboxów statystyk
         statsCheckbox.checked = false;
@@ -272,9 +274,9 @@ function updatePreview() {
         return;
     }
 
-    const name = document.getElementById('headerName').value || 'Twoje Imię';
-    const subtitle = document.getElementById('subtitle').value || 'Deweloper';
-    const typingText = document.getElementById('typingText').value || 'Witaj świecie';
+    const name = document.getElementById('headerName').value || getTrans('headerName');
+    const subtitle = document.getElementById('subtitle').value || getTrans('headerSubtitle');
+    const typingText = document.getElementById('typingText').value || getTrans('typingText');
     const theme = document.getElementById('themeSelect').value;
 
     const showStats = statsCheckbox.checked;
@@ -283,6 +285,8 @@ function updatePreview() {
     const showTopLanguage = topLangCheckbox.checked;
 
     const previewDiv = document.getElementById('readme-preview');
+
+    const currentLang = localStorage.getItem('selectedLang') || 'pl';
 
     let html = '';
 
@@ -306,15 +310,15 @@ function updatePreview() {
 
             html += `<div id="content-section">`;
             if (showStats) {
-                const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}`;
+                const myApiUrl = `${window.location.origin}/api?username=${username}&theme=${theme}&lang=${currentLang}`;
                 html += `<img src="${myApiUrl}">`;
             }
             if (showStreak) {
-                const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}`;
+                const myStreakUrl = `${window.location.origin}/api/streak?username=${username}&theme=${theme}&lang=${currentLang}`;
                 html += `<img src="${myStreakUrl}">`;
             }
             if (showTopLanguage) {
-                const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}`;
+                const myTopLanguageUrl = `${window.location.origin}/api/top_language?username=${username}&theme=${theme}&lang=${currentLang}`;
                 html += `<img src="${myTopLanguageUrl}">`
             }
             html += `</div>`;
@@ -356,7 +360,7 @@ function updatePreview() {
 
     if (skillsContent !== '') {
         html += `<div id="skills">`;
-        html += `<h1 id="skills-header">🛠️ Umiejętności i Narzędzia</h1>`; // Nagłówek tylko raz
+        html += `<h1 id="skills-header">${getTrans('skillsTools')}</h1>`; // Nagłówek tylko raz
         html += skillsContent;
         html += `</div>`;
     }
@@ -368,7 +372,7 @@ function updatePreview() {
 
     if(linkedin || youtube || website) {
         html += `<div id="contact-section">`
-            html += `<h3 id="headers-urls">🔗 Połącz się ze mną</h3>`;
+            html += `<h3 id="headers-urls">${getTrans('connectTitle')}</h3>`;
                 html += `<div id="content-urls">`;
                 if(linkedin) html += `<a href="${linkedin}" target="_blank" style="margin: 0 5px;"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>`;
                 if(youtube) html += `<a href="${youtube}" target="_blank" style="margin: 0 5px;"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white"></a>`;
@@ -380,22 +384,24 @@ function updatePreview() {
     previewDiv.innerHTML = html;
 }
 
-function generujKod() {
+function generateCode() {
     const username = document.getElementById('username').value;
     if(!username) {
-        showNotification("Wpisz najpierw swój nick GitHub!", "error");
+        showNotification(getTrans('msgEnterNick'), "error");
         return;
     }
 
-    const name = document.getElementById('headerName').value || 'Imie';
-    const subtitle = document.getElementById('subtitle').value || 'Dev';
-    const typingText = document.getElementById('typingText').value;
+    const name = document.getElementById('headerName').value || getTrans('headerName');
+    const subtitle = document.getElementById('subtitle').value || getTrans('headerSubtitle');
+    const typingText = document.getElementById('typingText').value || getTrans('typingText');
     const theme = document.getElementById('themeSelect').value;
 
     const showStats = document.getElementById('showStats').checked;
     const showTrophies = document.getElementById('showTrophies').checked;
     const showStreak = document.getElementById('showStreak').checked;
     const showTopLanguage = document.getElementById('showTopLanguage').checked;
+
+    const currentLang = localStorage.getItem('selectedLang') || 'pl';
 
     let markdown = ``;
 
@@ -426,13 +432,13 @@ function generujKod() {
         markdown += `  <p>\n`;
 
         if (showStats) {
-            markdown += `    <img src="${window.location.origin}/api?username=${username}&theme=${theme}" height="180" />&nbsp;\n`;
+            markdown += `    <img src="${window.location.origin}/api?username=${username}&theme=${theme}&lang=${currentLang}" height="180" />&nbsp;\n`;
         }
         if (showStreak) {
-            markdown += `    <img src="${window.location.origin}/api/streak?username=${username}&theme=${theme}" height="180" />&nbsp;\n`;
+            markdown += `    <img src="${window.location.origin}/api/streak?username=${username}&theme=${theme}&lang=${currentLang}" height="180" />&nbsp;\n`;
         }
         if (showTopLanguage) {
-            markdown += `    <img src="${window.location.origin}/api/top_language?username=${username}&theme=${theme}" height="180" />\n`;
+            markdown += `    <img src="${window.location.origin}/api/top_language?username=${username}&theme=${theme}&lang=${currentLang}" height="180" />\n`;
         }
 
         markdown += `  </p>\n`;
@@ -479,7 +485,7 @@ function generujKod() {
     if (hasAnySkill) {
         // Wyśrodkowany nagłówek główny
         markdown += `<br><br><br>\n\n`;
-        markdown += `<h2 align="center">🛠️ Umiejętności i Narzędzia</h2>\n\n`;
+        markdown += `<h2 align="center">${getTrans('skillsTools')}</h2>\n\n`;
         markdown += skillsMarkdown;
     }
 
@@ -491,7 +497,7 @@ function generujKod() {
     if(linkedin || youtube || website) {
         // Wyśrodkowany nagłówek
         markdown += `<br><br><br>\n\n`;
-        markdown += `<h2 align="center">🔗 Połącz się ze mną</h2>\n`;
+        markdown += `<h2 align="center">${getTrans('connectTitle')}</h2>\n`;
         markdown += `<p align="center">\n`;
 
         if(linkedin) markdown += `  <a href="${linkedin}" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>\n`;
@@ -504,24 +510,24 @@ function generujKod() {
     document.querySelector('.code-output').style.display = 'block';
     document.getElementById('finalCode').value = markdown;
 
-    showNotification("Kod wygenerowany pomyślnie!", "success");
+    showNotification(getTrans('msgGenerated'), "success");
     document.querySelector('.code-output').scrollIntoView({ behavior: 'smooth' });
 }
 
-function kopiuj() {
+function copy() {
     const copyText = document.getElementById("finalCode");
 
     if (!copyText.value) {
-        showNotification("Najpierw wygeneruj kod!", "warning");
+        showNotification(getTrans('msgGeneratedWarning'), "warning");
         return;
     }
 
     copyText.select();
     navigator.clipboard.writeText(copyText.value)
         .then(() => {
-            showNotification("Skopiowano do schowka!", "success");
+            showNotification(getTrans('msgCopied'), "success");
         })
         .catch(() => {
-            showNotification("Błąd kopiowania.", "error");
+            showNotification(getTrans('msgError'), "error");
         });
 }

@@ -12,6 +12,11 @@ body {
     overflow-x: hidden; /* Zapobiega poziomemu przewijaniu */
 }
 
+body.no-scroll {
+    overflow: hidden;
+    height: 100vh; /* Zabezpieczenie dla mobilnych przeglądarek */
+}
+
 /* Układ Dwukolumnowy */
 .main-container {
     display: flex;
@@ -387,6 +392,7 @@ input[type="text"], select {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-around;
+    gap: 20px 0;
 }
 
 #readme-preview #stats-section #content-section:first-child {
@@ -535,3 +541,94 @@ textarea {
 
 @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
 @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
+
+/* --- Modal Wyboru Języka --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px); /* Efekt rozmycia tła */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #161b22;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid #30363d;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h2 {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.language-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.lang-card {
+    flex: 1;
+    min-width: 150px;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.lang-card:hover {
+    border-color: #58a6ff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(88, 166, 255, 0.1);
+}
+
+.lang-card .flag {
+    font-size: 3rem;
+    color: #0ff;
+}
+
+.lang-card h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.lang-card p {
+    margin: 0;
+    color: #8b949e;
+    font-size: 0.8rem;
+}

@@ -3,78 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator README GitHub</title>
+    <title data-i18n="webTitle">Generator README GitHub</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
 <body>
+    <div id="language-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 data-i18n="modalTitle">🌍 Select Language / Wybierz Język</h2>
+            <div class="language-options">
+                <button onclick="setLanguage('en')" class="lang-card">
+                    <span class="flag">🇺🇸</span>
+                    <h3 data-i18n="langEn">English</h3>
+                    <p data-i18n="langEnDesc">Continue in English</p>
+                </button>
+                <button onclick="setLanguage('pl')" class="lang-card">
+                    <span class="flag">🇵🇱</span>
+                    <h3 data-i18n="langPl">Polski</h3>
+                    <p data-i18n="langPlDesc">Kontynuuj po polsku</p>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div class="main-container">
         <div class="editor-panel">
             <header>
-                <h1>🚀 Generator README</h1>
-                <p>Stworzony przez MaxPowerPL</p>
+                <h1 data-i18n="mainTitle">🚀 Generator README</h1>
+                <p data-i18n="createdBy">Stworzony przez MaxPowerPL</p>
             </header>
 
             <form id="generator-form">
 
                 <div class="section-card">
-                    <h2>👤 Podstawowe Informacje</h2>
+                    <h2 data-i18n="basicInfo">👤 Podstawowe Informacje</h2>
                     <div class="input-group">
-                        <label for="headerName">Nagłówek (Imię):</label>
-                        <input type="text" id="headerName" placeholder="Dominik" onchange="updatePreview()">
+                        <label for="headerName" data-i18n="labelName">Nagłówek (Imię):</label>
+                        <input type="text" id="headerName" data-i18n-placeholder="placeholderName" placeholder="Dominik" onchange="updatePreview()">
                     </div>
                     <div class="input-group">
-                        <label for="username">Nazwa użytkownika Github:</label>
-                        <input type="text" id="username" placeholder="MaxPowerPL" onchange="updatePreview()">
+                        <label for="username" data-i18n="labelNick">Nazwa użytkownika Github:</label>
+                        <input type="text" id="username" data-i18n-placeholder="placeholderNick" placeholder="MaxPowerPL" onchange="updatePreview()">
                     </div>
                     <div class="input-group">
-                        <label for="subtitle">Opis (Podtytuł):</label>
-                        <input type="text" id="subtitle" placeholder="Frontend Developer" onchange="updatePreview()">
+                        <label for="subtitle" data-i18n="labelDesc">Opis (Podtytuł):</label>
+                        <input type="text" id="subtitle" data-i18n-placeholder="placeholderDesc" placeholder="Frontend Developer" onchange="updatePreview()">
                     </div>
                     <div class="input-group">
-                        <label for="typingText">Tekst baneru:</label>
-                        <input type="text" id="typingText" placeholder="Koduje w C++; Lubię kawę;" onchange="updatePreview()">
+                        <label for="typingText" data-i18n="labelTyping">Tekst baneru (efekt pisania):</label>
+                        <input type="text" id="typingText" data-i18n-placeholder="placeholderTyping" placeholder="Koduje w C++; Lubię kawę;" onchange="updatePreview()">
                     </div>
                 </div>
 
                 <div class="section-card">
-                    <h2>📊 Statystki i Motyw</h2>
-                    <label for="themeSelect">Wybierz motyw karty statystyk:</label>
+                    <h2 data-i18n="statsTheme">📊 Statystyki i Motyw</h2>
+                    <label data-i18n="labelTheme" for="themeSelect">Wybierz motyw karty statystyk:</label>
                     <select id="themeSelect" onchange="updatePreview()">
-                        <option value="default">Domyślny (Ciemny)</option>
-                        <option value="gruvbox">Gruvbox (Retro)</option>
-                        <option value="dracula">Dracula (Fiolet)</option>
-                        <option value="light">Jasny</option>
+                        <option value="default">Default (Dark)</option>
+                        <option value="gruvbox">Gruvbox</option>
+                        <option value="dracula">Dracula</option>
+                        <option value="light">Light</option>
+                        <option value="radical">Radical</option>
+                        <option value="merko">Merko</option>
+                        <option value="tokyonight">Tokyo Night</option>
                     </select>
 
                     <div class="checkbox-group">
                         <div id="checkbox-row">
-                            <input type="checkbox" id="showStats" onchange="updatePreview()"> <label for="showStats">Pokaż Statystyki</label>
+                            <input type="checkbox" id="showStats" onchange="updatePreview()"> <label for="showStats" data-i18n="checkStats">Pokaż Statystyki</label>
                         </div>
                         <div id="checkbox-row">
-                            <input type="checkbox" id="showTrophies" onchange="updatePreview()"> <label for="showTrophies">Pokaż Trofea</label>
+                            <input type="checkbox" id="showTrophies" onchange="updatePreview()"> <label for="showTrophies" data-i18n="checkTrophies">Pokaż Trofea</label>
                         </div>
                         <div id="checkbox-row">
-                            <input type="checkbox" id="showStreak" onchange="updatePreview()"> <label for="showStreak">Pokaż Streak</label>
+                            <input type="checkbox" id="showStreak" onchange="updatePreview()"> <label for="showStreak" data-i18n="checkStreak">Pokaż Streak</label>
                         </div>
                         <div id="checkbox-row">
-                            <input type="checkbox" id="showTopLanguage" onchange="updatePreview()"> <label for="showTopLanguage">Pokaż Top Języki</label>
+                            <input type="checkbox" id="showTopLanguage" onchange="updatePreview()"> <label for="showTopLanguage" data-i18n="checkTopLang">Pokaż Top Języki</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="section-card">
-                    <h2>🛠️ Umiejętności i Narzędzia</h2>
-                    <p>Zaznacz technologie, które znasz:</p>
+                    <h2 data-i18n="skillsTools">🛠️ Umiejętności i Narzędzia</h2>
+                    <p data-i18n="skillsDesc">Zaznacz technologie, które znasz:</p>
 
                     <div class="skills-category">
                         <div class="skills-category-header">
-                            <h4>
-                                Języki Programowania
-                                <span class="counter-badge" id="count-langs">0/11</span>
-                            </h4>
+                            <h4 data-i18n="catLangs">Języki Programowania <span class="counter-badge" id="count-langs">0/10</span></h4>
                             <button type="button" class="select-all-btn" onclick="toggleCategory(this, 'count-langs')">Zaznacz wszystkie</button>
                         </div>
                         <div class="skills-grid">
@@ -94,11 +111,8 @@
 
                     <div class="skills-category">
                         <div class="skills-category-header">
-                            <h4>
-                                Frontend
-                                <span class="counter-badge" id="count-front">0/11</span>
-                            </h4>
-                            <button type="button" class="select-all-btn" onclick="toggleCategory(this, 'count-front')">Zaznacz wszystkie</button>
+                            <h4>Frontend <span class="counter-badge" id="count-langs">0/10</span></h4>
+                            <button type="button" class="select-all-btn" onclick="toggleCategory(this)" data-i18n="btnSelectAll">Zaznacz wszystkie</button>
                         </div>
                         <div class="skills-grid">
                             <label class="skill-checkbox"><input type="checkbox" id="html5" value="html5" onchange="updateUI()"> <i class="devicon-html5-plain colored"></i> HTML5</label>
@@ -116,11 +130,8 @@
 
                     <div class="skills-category">
                         <div class="skills-category-header">
-                            <h4>
-                                Backend i Bazy Danych
-                                <span class="counter-badge" id="count-back">0/11</span>
-                            </h4>
-                            <button type="button" class="select-all-btn" onclick="toggleCategory(this, 'count-back')">Zaznacz wszystkie</button>
+                            <h4 data-i18n="catBackend">Backend i Bazy Danych <span class="counter-badge" id="count-langs">0/10</span></h4>
+                            <button type="button" class="select-all-btn" onclick="toggleCategory(this)" data-i18n="btnSelectAll">Zaznacz wszystkie</button>
                         </div>
                         <div class="skills-grid">
                             <label class="skill-checkbox"><input type="checkbox" id="nodejs" value="nodejs" onchange="updateUI()"> <i class="devicon-nodejs-plain colored"></i> Node.js</label>
@@ -139,11 +150,8 @@
 
                     <div class="skills-category">
                         <div class="skills-category-header">
-                            <h4>
-                                Mobilne i Game Dev
-                                <span class="counter-badge" id="count-game">0/11</span>
-                            </h4>
-                            <button type="button" class="select-all-btn" onclick="toggleCategory(this, 'count-game')">Zaznacz wszystkie</button>
+                            <h4 data-i18n="catMobile">Mobilne i Game Dev <span class="counter-badge" id="count-langs">0/10</span></h4>
+                            <button type="button" class="select-all-btn" onclick="toggleCategory(this)" data-i18n="btnSelectAll">Zaznacz wszystkie</button>
                         </div>
                         <div class="skills-grid">
                             <label class="skill-checkbox"><input type="checkbox" id="android" value="android" onchange="updateUI()"> <i class="devicon-android-plain colored"></i> Android</label>
@@ -156,11 +164,8 @@
 
                     <div class="skills-category">
                         <div class="skills-category-header">
-                            <h4>
-                                Narzędzia i DevOps
-                                <span class="counter-badge" id="count-tools">0/11</span>
-                            </h4>
-                            <button type="button" class="select-all-btn" onclick="toggleCategory(this, 'count-tools')">Zaznacz wszystkie</button>
+                            <h4 data-i18n="catTools">Narzędzia i DevOps <span class="counter-badge" id="count-langs">0/9</span></h4>
+                            <button type="button" class="select-all-btn" onclick="toggleCategory(this)" data-i18n="btnSelectAll">Zaznacz wszystkie</button>
                         </div>
                         <div class="skills-grid">
                             <label class="skill-checkbox"><input type="checkbox" id="git" value="git" onchange="updateUI()"> <i class="devicon-git-plain colored"></i> Git</label>
@@ -177,7 +182,7 @@
                 </div>
 
                 <div class="section-card">
-                    <h2>🔗 Połącz się ze mną</h2>
+                    <h2 data-i18n="connectTitle">🔗 Połącz się ze mną</h2>
                     <div class="input-group">
                         <label for="linkedin">LinkedIn URL:</label>
                         <input type="text" id="linkedin" placeholder="https://linkedin.com/in/..." onchange="updatePreview()">
@@ -187,27 +192,27 @@
                         <input type="text" id="youtube" placeholder="https://youtube.com/..." onchange="updatePreview()">
                     </div>
                     <div class="input-group">
-                        <label for="website">Strona WWW / Portfolio:</label>
-                        <input type="text" id="website" placeholder="https://twojastrona.pl" onchange="updatePreview()">
+                        <label for="website" data-i18n="connectSubtitleWeb">Strona WWW / Portfolio:</label>
+                        <input type="text" id="website" placeholder="https://twojastrona.pl" data-i18n-placeholder="placeholderWeb" onchange="updatePreview()">
                     </div>
                 </div>
 
             </form>
 
-            <button class="generate-btn" onclick="generujKod()">Generuj Kod Markdown</button>
+            <button class="generate-btn" onclick="generateCode()" data-i18n="btnGenerate">Generuj Kod Markdown</button>
         </div>
 
         <div class="preview-panel">
             <div class="sticky-wrapper">
-                <h3>👁️ Podgląd na żywo</h3>
+                <h3 data-i18n="previewTitle">👁️ Podgląd na żywo</h3>
                 <div id="readme-preview" class="markdown-body">
-                    <p>Wypełnij formularz, aby zobaczyć podgląd...</p>
+                    <p data-i18n="previewPlaceholder">Wypełnij formularz, aby zobaczyć podgląd...</p>
                 </div>
 
                 <div class="code-output" style="display: none;">
-                    <h3>📜 Kod Markdown (Gotowy do skopiowania)</h3>
+                    <h3 data-i18n="codeTitle">📜 Kod Markdown (Gotowy do skopiowania)</h3>
                     <textarea id="finalCode" readonly></textarea>
-                    <button onclick="kopiuj()">Kopiuj do schowka</button>
+                    <button onclick="copy()" data-i18n="btnCopy">Kopiuj do schowka</button>
                 </div>
             </div>
         </div>
@@ -215,6 +220,7 @@
 
     <div id="notification-container"></div>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
