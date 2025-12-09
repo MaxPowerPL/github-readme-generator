@@ -127,7 +127,7 @@ export default async function handler(req, res) {
 
     // --- GENEROWANIE SVG (POPRAWIONE WYMIARY I CZCIONKI) ---
     const svg = `
-      <svg width="495" height="200" viewBox="0 0 495 195" xmlns="http://www.w3.org/2000/svg">
+      <svg width="495" height="200" viewBox="0 0 495 200" xmlns="http://www.w3.org/2000/svg">
         <style>
           .header { font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
           .stat-label { font: 400 15px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
