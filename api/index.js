@@ -138,8 +138,6 @@ export default async function handler(req, res) {
           /* Animacja */
           .progress-ring-circle {
             transition: stroke-dashoffset 0.35s;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
           }
         </style>
 
@@ -201,6 +199,7 @@ export default async function handler(req, res) {
                 fill="transparent"
                 r="${rank.radius}"
                 cx="0" cy="0"
+                transform="rotate(-90)"
                 stroke-dasharray="${rank.circumference} ${rank.circumference}"
                 stroke-dashoffset="${rank.offset}"
             />
