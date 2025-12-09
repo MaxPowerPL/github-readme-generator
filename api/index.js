@@ -134,7 +134,6 @@ export default async function handler(req, res) {
           .stat-value { font: 700 16px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
           .rank-letter { font: 800 36px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; }
           .rank-label { font: 600 15px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.secondary}; }
-          .footer { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${t.text}; opacity: 0.6; }
 
           /* Animacja */
           .progress-ring-circle {
@@ -144,7 +143,7 @@ export default async function handler(req, res) {
           }
         </style>
 
-        <rect x="1" y="1" width="493" height="193" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
+        <rect x="1" y="1" width="495" height="200" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
         <text x="25" y="35" class="header">
           ${name} - ${txt.title}
@@ -154,7 +153,7 @@ export default async function handler(req, res) {
         <g transform="translate(25, 60)">
             <g transform="translate(0, 20)">
                 <text class="stat-label">⭐ ${txt.stars}:</text>
-                <text x="120" class="stat-value">${totalStars}</text>
+                <text x="125" class="stat-value">${totalStars}</text>
             </g>
              <g transform="translate(190, 20)">
                 <text class="stat-label">🔄 ${txt.commits}:</text>
@@ -163,7 +162,7 @@ export default async function handler(req, res) {
 
              <g transform="translate(0, 50)">
                 <text class="stat-label">🔀 ${txt.prs}:</text>
-                <text x="120" class="stat-value">${totalPRs}</text>
+                <text x="125" class="stat-value">${totalPRs}</text>
             </g>
              <g transform="translate(190, 50)">
                 <text class="stat-label">🐛 ${txt.issues}:</text>
@@ -172,7 +171,7 @@ export default async function handler(req, res) {
 
              <g transform="translate(0, 80)">
                 <text class="stat-label">📦 ${txt.repos}:</text>
-                <text x="120" class="stat-value">${totalRepos}</text>
+                <text x="125" class="stat-value">${totalRepos}</text>
             </g>
              <g transform="translate(190, 80)">
                 <text class="stat-label">📕 ${txt.contribTo}:</text>
@@ -181,11 +180,11 @@ export default async function handler(req, res) {
 
             <g transform="translate(0, 110)">
                 <text class="stat-label">👥 ${txt.followers}:</text>
-                <text x="120" class="stat-value">${followers}</text>
+                <text x="125" class="stat-value">${followers}</text>
             </g>
         </g>
 
-        <g transform="translate(410, 100)">
+        <g transform="translate(410, 105)">
             <circle
                 stroke="${t.stroke}"
                 stroke-width="5"
@@ -209,7 +208,7 @@ export default async function handler(req, res) {
             <text x="0" y="65" text-anchor="middle" class="rank-label">${txt.rank}</text>
         </g>
 
-        <text x="475" y="190" class="footer" text-anchor="end">
+        <text x="475" y="190" font-family="Segoe UI, Helvetica, Arial" font-size="11" fill="${t.text}" opacity="0.6" text-anchor="end">
           ${txt.footer}
         </text>
       </svg>

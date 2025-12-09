@@ -108,8 +108,8 @@ export default async function handler(req, res) {
     const t = themes[theme] || themes['default'];
 
 const svg = `
-      <svg width="350" height="180" viewBox="0 0 350 180" xmlns="http://www.w3.org/2000/svg">
-        <rect width="350" height="180" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
+      <svg width="350" height="200" viewBox="0 0 350 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="350" height="200" rx="10" fill="${t.bg}" stroke="${t.stroke}" stroke-width="2"/>
 
         <text x="175" y="35" font-family="Segoe UI, sans-serif" font-size="18" fill="${t.text}" font-weight="bold" text-anchor="middle">
           ${txt.title}
