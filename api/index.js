@@ -143,7 +143,7 @@ export default async function handler(req, res) {
 
           .progress-ring-circle {
             /* 1s animacji, 500ms opóźnienia, 'both' utrzymuje stan początkowy (pusty) w trakcie czekania */
-            animation: fillRank 1s ease-out 500ms both;
+            animation: fillRank 1.5s ease-out 500ms both;
           }
         </style>
 
