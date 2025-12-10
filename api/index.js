@@ -4,6 +4,12 @@ import axios from 'axios';
 function calculateRank(stats) {
   const { totalStars, totalCommits, totalPRs, totalIssues, followers } = stats;
 
+  // Punktacja:
+  // Commit: 2 pkt
+  // PR: 10 pkt
+  // Issue: 5 pkt
+  // Gwiazdka: 20 pkt
+  // Obserwujący: 3 pkt
   const score =
     totalCommits * 2 +
     totalPRs * 10 +
@@ -15,13 +21,14 @@ function calculateRank(stats) {
   let percent = 100;
   let color = '#33bbff';
 
-  if (score > 15000) { level = 'S+'; percent = 100; color = '#ff3333'; }
-  else if (score > 8000) { level = 'S'; percent = 95; color = '#ff3333'; }
-  else if (score > 4000) { level = 'A+'; percent = 90; color = '#33bbff'; }
-  else if (score > 2000) { level = 'A'; percent = 80; color = '#33bbff'; }
-  else if (score > 1000) { level = 'B+'; percent = 70; color = '#2ecc71'; }
-  else if (score > 500) { level = 'B'; percent = 55; color = '#2ecc71'; }
-  else { level = 'C'; percent = 40; color = '#f1c40f'; }
+  if (score > 10000)      { level = 'S+'; percent = 100; color = '#ff3333'; }
+  else if (score > 7500)  { level = 'S';  percent = 90;  color = '#ff3333'; }
+  else if (score > 5000)  { level = 'A+'; percent = 80;  color = '#2ecc71'; }
+  else if (score > 2500)  { level = 'A';  percent = 70;  color = '#2ecc71'; }
+  else if (score > 1000)  { level = 'B+'; percent = 60;  color = '#33bbff'; }
+  else if (score > 500)   { level = 'B';  percent = 50;  color = '#33bbff'; }
+  else if (score > 250)   { level = 'C+'; percent = 40;  color = '#f1c40f'; }
+  else                    { level = 'C';  percent = 25;  color = '#f1c40f'; }
 
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
