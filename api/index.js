@@ -159,27 +159,27 @@ export default async function handler(req, res) {
                 <text class="stat-label">⭐ ${txt.stars}:</text>
                 <text x="125" class="stat-value">${totalStars}</text>
             </g>
-             <g transform="translate(190, 20)">
+             <g transform="translate(180, 20)">
                 <text class="stat-label">🔄 ${txt.commits}:</text>
-                <text x="120" class="stat-value">${totalCommits}</text>
+                <text x="130" class="stat-value">${totalCommits}</text>
             </g>
 
              <g transform="translate(0, 50)">
                 <text class="stat-label">🔀 ${txt.prs}:</text>
                 <text x="125" class="stat-value">${totalPRs}</text>
             </g>
-             <g transform="translate(190, 50)">
+             <g transform="translate(180, 50)">
                 <text class="stat-label">🐛 ${txt.issues}:</text>
-                <text x="120" class="stat-value">${totalIssues}</text>
+                <text x="130" class="stat-value">${totalIssues}</text>
             </g>
 
              <g transform="translate(0, 80)">
                 <text class="stat-label">📦 ${txt.repos}:</text>
                 <text x="125" class="stat-value">${totalRepos}</text>
             </g>
-             <g transform="translate(190, 80)">
+             <g transform="translate(180, 80)">
                 <text class="stat-label">📕 ${txt.contribTo}:</text>
-                <text x="120" class="stat-value">${contributedTo}</text>
+                <text x="130" class="stat-value">${contributedTo}</text>
             </g>
 
             <g transform="translate(0, 110)">
