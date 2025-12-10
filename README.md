@@ -12,7 +12,7 @@
     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#-funkcje">✨ Funkcje</a>
     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    <a href="#-instalacja">⚙️ Instalacja</a>
+    <a href="#-instalacja-i-konfiguracja">⚙️ Instalacja</a>
   </p>
 
   <img src="https://img.shields.io/github/package-json/v/MaxPowerPL/github-readme-generator?style=flat-square&color=238636" alt="Wersja" />
