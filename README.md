@@ -15,9 +15,9 @@
     <a href="#-instalacja-i-konfiguracja">⚙️ Instalacja</a>
   </p>
 
-  <img src="https://img.shields.io/github/package-json/v/MaxPowerPL/github-readme-generator?style=flat-square&color=238636" alt="Wersja" />
-  <img src="https://img.shields.io/badge/Maintained-Tak-blue?style=flat-square" alt="Utrzymywany" />
-  <img src="https://img.shields.io/github/license/MaxPowerPL/github-readme-generator?style=flat-square" alt="Licencja" />
+  <img src="https://img.shields.io/github/package-json/v/MaxPowerPL/github-readme-generator?style=for-the-badge&color=238636" alt="Wersja" />
+  <img src="https://img.shields.io/badge/Maintained-Tak-blue?style=for-the-badge" alt="Utrzymywany" />
+  <img src="https://img.shields.io/github/license/MaxPowerPL/github-readme-generator?style=for-the-badge" alt="Licencja" />
 
 </div>
 
