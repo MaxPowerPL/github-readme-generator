@@ -246,7 +246,7 @@ Możesz używać tych endpointów bezpośrednio w swoich plikach markdown:
 
 ## 📝 Changelog
 
-### v1.1 (Latest Release)
+### v1.1 (Latest)
 **UPDATES:**
 - **Streak API Upgrade:** Przebudowano logikę `api/streak.js`. Teraz API oblicza nie tylko aktualną passę, ale również skanuje historię kontrybucji z ostatniego roku, aby znaleźć **Najdłuższą Passę (Longest Streak)**.
 - **New Streak Card Design:** Karta Streak SVG została podzielona na dwie kolumny (Aktualny / Najdłuższy) dla lepszej czytelności.
