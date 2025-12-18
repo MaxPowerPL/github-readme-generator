@@ -9,7 +9,7 @@
   *Projekt stworzony za pomocą HTML5, CSS3, Vanilla JS, Vercel Serverless Functions i GitHub GraphQL API*
 
   <p>
-    <a href="https://github.com/MaxPowerPL/github-readme-generator/releases/tag/">
+    <a href="https://github.com/MaxPowerPL/github-readme-generator/releases/tag/v1.1">
       <img src="https://img.shields.io/github/v/tag/MaxPowerPL/github-readme-generator?label=VERSION&style=for-the-badge&color=238636" alt="Wersja" />
     </a>
     <a href="https://github-readme-generator-xi.vercel.app">
